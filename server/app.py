@@ -226,6 +226,28 @@ def cancel_parcel_order(parcel_order_id):
     else:
         return jsonify({"message": "User not found"}), 404
 
+@user_bp.get('/parcel_order/<int:parcel_order_id>')
+@jwt_required()
+def get_parcel_order_details(parcel_order_id):
+    current_username = get_jwt_identity()
+    user = User.get_user_by_username(username= current_username)
+
+    if user:
+        parcel_order = ParcelOrder.query.filter_by(id= parcel_order_id, user_id= user.id).first()
+
+        if parcel_order:
+            parcel_order_schema = ParcelOrderSchema()
+            serialized_parcel_order = parcel_order_schema.dump(parcel_order)
+            return jsonify(serialized_parcel_order),200
+
+        else:
+          return jsonify({"message": "Parcel order not found"})
+    else:
+        return jsonify({"message":"User not found"}), 404
+
+#endpoint
+app.register_blueprint(user_bp, url_prefix='/users')
+
 
 
 class Home(Resource):
