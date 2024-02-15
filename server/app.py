@@ -248,6 +248,39 @@ def get_parcel_order_details(parcel_order_id):
 #endpoint
 app.register_blueprint(user_bp, url_prefix='/users')
 
+@admin_bp.put('/parcel_orders/<int:parcel_order_id>')
+@jwt_required()
+def update_parcel_order(parcel_order_id):
+    current_user = get_jwt_identity()
+    user = User.get_user_by_username(current_user)
+    claims = get_jwt()
+    
+
+    if claims.get('is_admin') == True:
+        data = request.get_json()
+        new_status = data.get('status')
+
+        parcel_order = ParcelOrder.query.get(parcel_order_id)
+
+        if parcel_order:
+            if new_status:
+                parcel_order.status = new_status
+            
+            new_traker_entry = Tracker(
+                status = new_status if new_status else parcel_order.status,
+                delivery_date = datetime.now(),
+                parcel_id = parcel_order.id
+            )
+            db.session.add(new_traker_entry)
+            db.session.commit()
+
+            return jsonify({"message": "Parcel order updated successfully"}), 200
+        else:
+            return jsonify({"message": "Parcel order not found"}), 404
+    else:
+        return jsonify({"message": "Unauthorized"}), 401    
+app.register_blueprint(admin_bp, url_prefix="/admin")
+
 
 
 class Home(Resource):
