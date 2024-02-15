@@ -19,6 +19,11 @@ db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
 
+# Initializing blueprints 
+auth_bp = Blueprint('auth', __name__)
+user_bp = Blueprint('users', __name__)
+admin_bp = Blueprint('admin', __name__)
+
 
 class Home(Resource):
     def get(self):
