@@ -129,6 +129,29 @@ def get_all_users():
     
     return jsonify ({"message": "You are not authorized to acces this"}), 401
 
+@user_bp.get('/parcel_orders')
+@jwt_required()
+def get_parcel_orders():
+    current_username = get_jwt_identity()
+
+    user = User.get_user_by_username(username=current_username)
+
+    if user:
+        parcel_orders = ParcelOrder.query.filter_by(user_id=user.id).all()
+
+        serialized_parcel_orders = [
+            {
+                'name_of_parcel': parcel.name_of_parcel,
+                'pickup_location': parcel.pickup_location,
+                'destination': parcel.destination,
+            }
+            for parcel in parcel_orders
+        ]
+
+        return jsonify({"parcel_orders": serialized_parcel_orders}), 200
+    else:
+        return jsonify({"message": "User not found"}), 404
+
 
 class Home(Resource):
     def get(self):
