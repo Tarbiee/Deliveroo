@@ -49,3 +49,12 @@ class ParcelOrder(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tracker = db.relationship('Tracker',uselist=False, backref='parcel_order')
+
+class Tracker(db.Model):
+    __tablename__ = 'trackers'
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(50), default= 'preparing')
+    present_location = db.Column(db.String(50))
+    delivery_date = db.Column (db.DateTime, default='preparing')
+
+    parcel_id = db.Column(db.Integer, db.ForeignKey('parcel_orders.id'))
