@@ -43,6 +43,24 @@ def register_user():
     new_user.save_user()
     return jsonify({"message":"User created"}), 201
 
+@auth_bp.post('/login')
+def login_user():
+     
+     data = request.get_json()
+     user = User.get_user_by_username(username=data.get('username'))
+
+     if user and (user.check_password(password= data.get('password'))):
+         access_token = create_access_token(identity= user.username)
+         refresh_token = create_refresh_token(identity = user.username)
+         return jsonify({
+            "message": "Logged In",
+            "tokens": {
+                "access": access_token,
+                "refresh": refresh_token
+            }
+        }), 200
+     return jsonify({"message": "Invalid username or password"}), 401
+
 
 class Home(Resource):
     def get(self):
