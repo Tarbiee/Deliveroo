@@ -19,6 +19,9 @@ db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
 
+jwt = JWTManager(app)
+
+
 # Initializing blueprints 
 auth_bp = Blueprint('auth', __name__)
 user_bp = Blueprint('users', __name__)
