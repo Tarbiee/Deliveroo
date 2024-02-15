@@ -185,6 +185,29 @@ def create_parcel_order():
         return jsonify(serialized_parcel_order), 201
     else:
         return jsonify({"message": "User not found"}), 404
+    
+@user_bp.put('/edit_parcel/<int:parcel_order_id>')
+@jwt_required()
+def edit_parcel(parcel_order_id):
+    current_username = get_jwt_identity()
+    user = User.get_user_by_username(username=current_username)
+    if user:
+        parcel_order = ParcelOrder.query.filter_by(id=parcel_order_id, user_id=user.id).first()
+        if parcel_order:
+            data = request.get_json()
+            new_destination = data.get('destination')
+            if new_destination:
+                parcel_order.destination = new_destination
+            db.session.commit()
+
+            parcel_order_schema = ParcelOrderSchema()
+            serialize_parcel_order = parcel_order_schema.dump(parcel_order)
+            return jsonify({"message": "Parcel_order edited succassfully","parcel_order":serialize_parcel_order}), 200
+        else:
+            return jsonify({"message": "Parcel order not found"}), 404
+
+    else:
+        return jsonify({"message":"User not found"}),404
 
 
 class Home(Resource):
