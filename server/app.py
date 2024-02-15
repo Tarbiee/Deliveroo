@@ -97,6 +97,17 @@ def whoami():
     claims = get_jwt()
     return jsonify({"user_details":current_user.username, "email":current_user.email})
 
+@auth_bp.get('/refresh')
+@jwt_required(refresh= True)
+def refresh_access():
+    identity = get_jwt_identity()
+    new_access_token = create_access_token(identity=identity)
+
+    return jsonify({"access_token": new_access_token})
+
+#endpoint
+app.register_blueprint(auth_bp, url_prefix='/auth')
+
 
 class Home(Resource):
     def get(self):
