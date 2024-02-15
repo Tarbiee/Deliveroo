@@ -15,3 +15,7 @@ class User(db.Model):
     # set hash password
     def set_password(self, password):
         self.password = generate_password_hash(password)
+
+        # check if password is correct >> login
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
