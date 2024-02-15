@@ -208,6 +208,24 @@ def edit_parcel(parcel_order_id):
 
     else:
         return jsonify({"message":"User not found"}),404
+    
+@user_bp.delete('/delete_parcel/<int:parcel_order_id>')
+@jwt_required()
+def cancel_parcel_order(parcel_order_id):
+    current_username = get_jwt_identity()
+    user = User.get_user_by_username(username=current_username)
+
+    if user:
+        parcel_order = ParcelOrder.query.filter_by(id= parcel_order_id, user_id= user.id).first()
+        if parcel_order:
+            db.session.delete(parcel_order)
+            db.session.commit()
+            return jsonify({"message": "Parcel order cancelled successfully"}), 200
+        else:
+            return jsonify({"message": "Parcel order not found"})
+    else:
+        return jsonify({"message": "User not found"}), 404
+
 
 
 class Home(Resource):
