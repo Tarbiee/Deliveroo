@@ -15,6 +15,9 @@ app.json.compact = False
 
 CORS(app)
 
+db.init_app(app)
+migrate = Migrate(app, db)
+
 
 class Home(Resource):
     def get(self):
