@@ -151,6 +151,40 @@ def get_parcel_orders():
         return jsonify({"parcel_orders": serialized_parcel_orders}), 200
     else:
         return jsonify({"message": "User not found"}), 404
+    
+@user_bp.post('/add_parcel_order')
+@jwt_required()
+def create_parcel_order():
+    
+    current_username = get_jwt_identity()
+
+    
+    user = User.get_user_by_username(username=current_username)
+
+    if user:
+        data = request.get_json()
+
+        new_parcel_order = ParcelOrder(
+            name_of_parcel=data.get('name_of_parcel'),
+            pickup_location=data.get('pickup_location'),
+            destination=data.get('destination'),
+            latitude=data.get('latitude'),
+            longitude=data.get('longitude'),
+            image_of_parcel=data.get('image_of_parcel'),
+            receivers_name=data.get('receivers_name'),
+            weight_of_parcel=data.get('weight_of_parcel'),
+            user_id=user.id  
+        )
+
+        db.session.add(new_parcel_order)
+        db.session.commit()
+
+        parcel_order_schema = ParcelOrderSchema()
+        serialized_parcel_order = parcel_order_schema.dump(new_parcel_order)
+
+        return jsonify(serialized_parcel_order), 201
+    else:
+        return jsonify({"message": "User not found"}), 404
 
 
 class Home(Resource):
