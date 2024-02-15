@@ -11,3 +11,7 @@ class User(db.Model):
     password = db.Column(db.Text)
 
     parcels = db.relationship('ParcelOrder', backref='user')
+
+    # set hash password
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
