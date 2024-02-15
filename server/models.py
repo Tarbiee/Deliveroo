@@ -16,6 +16,11 @@ class User(db.Model):
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
-        # check if password is correct >> login
+    # check if password is correct >> login
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    # check if user exists
+    @classmethod
+    def get_user_by_username(cls, username):
+        return cls.query.filter_by(username=username).first()
