@@ -64,6 +64,39 @@ def login_user():
         }), 200
      return jsonify({"message": "Invalid username or password"}), 401
 
+#load user
+@jwt.user_lookup_loader
+def user_lookup_callback(__jwt_headers,jwt_data):
+    identity = jwt_data['sub']
+
+    return User.query.filter_by(username = identity).one_or_none()
+
+#additional claims
+@jwt.additional_claims_loader
+def make_additional_claims(identity):
+    if identity == "Stephanie Mechan":
+        return{"is_admin": True}
+    return {"is_admin": False}
+
+#jwt error handlers
+@jwt.expired_token_loader
+def expired_token_callback(jwt_header,jwt_data):
+    return jsonify({"message": "Token has expired", "error":"token_expired"}), 401
+
+@jwt.invalid_token_loader
+def invalid_token_callback(error):
+    return jsonify({"message": "Signature verification failed", "error":"invalid_token"})
+
+@jwt.unauthorized_loader
+def missing_token_callback(error):
+    return jsonify({"message": "Request doesnt contain a valid token", "error":"authorization_header"})
+
+@auth_bp.get('/whoami')
+@jwt_required()
+def whoami():
+    claims = get_jwt()
+    return jsonify({"user_details":current_user.username, "email":current_user.email})
+
 
 class Home(Resource):
     def get(self):
