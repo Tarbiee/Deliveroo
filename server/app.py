@@ -108,6 +108,27 @@ def refresh_access():
 #endpoint
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
+@user_bp.get('/all')
+@jwt_required()
+def get_all_users():
+
+    claims = get_jwt()
+    page = request.args.get('page', default =1, type=int)
+
+    if claims.get('is_admin') == True:
+      per_page = request.args.get('per_page', type=int)
+
+      users = User.query.paginate(
+        page = page,
+        per_page = per_page
+      )
+      result = UserSchema().dump(users, many = True)
+      return jsonify({
+        "users": result,
+      }), 200
+    
+    return jsonify ({"message": "You are not authorized to acces this"}), 401
+
 
 class Home(Resource):
     def get(self):
