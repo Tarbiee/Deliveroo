@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt, current_user, get_jwt_identity
 from models import db,User, ParcelOrder, Tracker
 from flask_cors import CORS
-from schemas import UserSchema, ParcelOrderSchema
+from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
 from datetime import datetime
 
 app= Flask(__name__)
@@ -56,7 +56,7 @@ def login_user():
          access_token = create_access_token(identity= user.username)
          refresh_token = create_refresh_token(identity = user.username)
          return jsonify({
-            "message": "Logged In",
+            "message": "Logged In Successfully",
             "tokens": {
                 "access": access_token,
                 "refresh": refresh_token
@@ -168,8 +168,10 @@ def create_parcel_order():
             name_of_parcel=data.get('name_of_parcel'),
             pickup_location=data.get('pickup_location'),
             destination=data.get('destination'),
-            latitude=data.get('latitude'),
-            longitude=data.get('longitude'),
+            latitude_pick_up_location=data.get('latitude_pick_up_location'),
+            longitude_pick_up_location=data.get('longitude_pick_up_location'),
+            latitude_destination=data.get('latitude_destination'),
+            longitude_destination=data.get('llongitude_destination'),
             image_of_parcel=data.get('image_of_parcel'),
             receivers_name=data.get('receivers_name'),
             weight_of_parcel=data.get('weight_of_parcel'),
@@ -186,7 +188,7 @@ def create_parcel_order():
     else:
         return jsonify({"message": "User not found"}), 404
     
-@user_bp.put('/edit_parcel/<int:parcel_order_id>')
+@user_bp.patch('/edit_parcel/<int:parcel_order_id>')
 @jwt_required()
 def edit_parcel(parcel_order_id):
     current_username = get_jwt_identity()
@@ -248,39 +250,37 @@ def get_parcel_order_details(parcel_order_id):
 #endpoint
 app.register_blueprint(user_bp, url_prefix='/users')
 
-@admin_bp.put('/parcel_orders/<int:parcel_order_id>')
+@admin_bp.patch('/parcel_order/<int:parcel_order_id>')
 @jwt_required()
 def update_parcel_order(parcel_order_id):
     current_user = get_jwt_identity()
     user = User.get_user_by_username(current_user)
     claims = get_jwt()
     
-
-    if claims.get('is_admin') == True:
+    if claims.get('is_admin'):
         data = request.get_json()
         new_status = data.get('status')
 
         parcel_order = ParcelOrder.query.get(parcel_order_id)
 
         if parcel_order:
-            if new_status:
-                parcel_order.status = new_status
-            
-            new_traker_entry = Tracker(
-                status = new_status if new_status else parcel_order.status,
-                delivery_date = datetime.now(),
-                parcel_id = parcel_order.id
-            )
-            db.session.add(new_traker_entry)
-            db.session.commit()
+            tracker = Tracker.query.filter_by(parcel_id=parcel_order.id).first()
+            if tracker:
+                if new_status:
+                    tracker.status = new_status
+                    db.session.commit()
 
-            return jsonify({"message": "Parcel order updated successfully"}), 200
+                    tracker_schema = TrackerSchema()
+                    serialized_tracker = tracker_schema.dump(tracker)
+                    return jsonify({"message": "Parcel order updated successfully", "tracker": serialized_tracker}), 200
+            else:
+                return jsonify({"message": "Tracker not found for the parcel order"}), 404
         else:
             return jsonify({"message": "Parcel order not found"}), 404
     else:
-        return jsonify({"message": "Unauthorized"}), 401    
-app.register_blueprint(admin_bp, url_prefix="/admin")
+        return jsonify({"message": "Unauthorized"}), 401
 
+app.register_blueprint(admin_bp, url_prefix="/admin")
 
 
 @app.route("/")
