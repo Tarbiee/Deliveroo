@@ -283,10 +283,11 @@ app.register_blueprint(admin_bp, url_prefix="/admin")
 
 
 
-class Home(Resource):
-    def get(self):
-        return 'Index for Deliveroo API'
-api.add_resource(Home,'/') 
+@app.route("/")
+def index():
+    return 'Index for Deliveroo API'
+    
+
 
 
 
