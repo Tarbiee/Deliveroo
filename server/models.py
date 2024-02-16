@@ -38,11 +38,13 @@ class User(db.Model):
 class ParcelOrder(db.Model):
     __tablename__ = 'parcel_orders'
     id = db.Column(db.Integer, primary_key= True)
-    name_of_parcel = db.Column(db.String(50),unique=True, nullable=False)
+    name_of_parcel = db.Column(db.String(50), nullable=False)
     pickup_location = db.Column(db.String(50))
     destination = db.Column(db.String(50))
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
+    latitude_pick_up_location= db.Column(db.Float)
+    longitude_pick_up_location = db.Column(db.Float)
+    latitude_destination= db.Column(db.Float)
+    longitude_destination= db.Column(db.Float)
     image_of_parcel = db.Column(db.String)
     receivers_name = db.Column(db.String(50))
     weight_of_parcel = db.Column(db.Integer)

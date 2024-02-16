@@ -41,8 +41,10 @@ with app.app_context():
                 name_of_parcel=fake.word(),
                 pickup_location=fake.address(),
                 destination=fake.address(),
-                latitude=fake.latitude(),
-                longitude=fake.longitude(),
+                latitude_pick_up_location=fake.latitude(),
+                longitude_pick_up_location=fake.longitude(),
+                latitude_destination=fake.longitude(),
+                longitude_destination=fake.longitude(),
                 image_of_parcel=fake.image_url(),
                 receivers_name=fake.name(),
                 weight_of_parcel=random.randint(1, 10),
@@ -52,7 +54,7 @@ with app.app_context():
             db.session.commit()
 
             tracker = Tracker(
-                status=random.choice(['preparing', 'on transit', 'delivered']),
+                status='preparing',
                 present_location=fake.address(),
                 delivery_date=fake.date_time_between(start_date='-1y', end_date='now'),
                 parcel_id=parcel_order.id
