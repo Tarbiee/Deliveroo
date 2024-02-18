@@ -7,9 +7,18 @@ import user from "../images/login1.png"
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Login() {
+
+    const navigate = useNavigate()
+
+    function handleRegister(){
+        navigate('/register')
+    }
+
+
   return (
     <div className='login-container'> 
         <div className='login-form'>
@@ -26,10 +35,10 @@ export default function Login() {
             <FontAwesomeIcon icon={faGithub} />
           </div>
        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Control type="email" placeholder="username" />
+        <Form.Control type="text" placeholder="username" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Control type="email" placeholder="password" />
+        <Form.Control type="text" placeholder="password" />
       </Form.Group>
         </Form>
         <Button style={{backgroundColor:"#49b6ff"}}>Login</Button>
@@ -38,7 +47,7 @@ export default function Login() {
         <div className='login-content'>
     
             <h3>Are you new here?</h3>
-            <Button style={{backgroundColor:"#49b6ff"}}>Register</Button>
+            <Button onClick= {handleRegister} style={{backgroundColor:"#49b6ff"}}>Register</Button>
         </div>
       
     </div>
