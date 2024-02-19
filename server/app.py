@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, make_response, request, Blueprint
+from flask import Flask, jsonify, make_response, request,render_template,redirect, url_for, Blueprint
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt, current_user, get_jwt_identity
@@ -286,6 +286,50 @@ app.register_blueprint(admin_bp, url_prefix="/admin")
 @app.route("/")
 def index():
     return 'Index for Deliveroo API'
+
+
+
+#parcel_order_page
+@app.route('/parcel_list')
+def parcel_list():
+    parcels = ParcelOrder.query.all()
+    return render_template('parcel_list.html', parcels=parcels)
+
+
+# Route for viewing a parcel
+@app.route('/parcel_list/<int:parcel_id>', methods=['GET'])
+def view_parcel(parcel_id):
+    parcel = ParcelOrder.query.get_or_404(parcel_id)
+    return render_template('view_parcel.html', parcel=parcel)
+
+
+# Route for editing a parcel
+@app.route('/parcel_list/<int:parcel_id>/edit', methods=['GET', 'POST'])
+def edit_parcel(parcel_id):
+    parcel = ParcelOrder.query.get_or_404(parcel_id)
+    if request.method == 'POST':
+        parcel.parcel_name = request.form['parcel_name']
+        parcel.pickup_location = request.form['pick_up_location']
+        parcel.destination = request.form['destination']
+        parcel.latitude_pick_up_location= request.form['latitude_pick_up_location']
+        parcel.longitude_pick_up_location = request.form['longitude_pick_up_location']
+        parcel.latitude_destination= request.form['latitude_destination']
+        parcel.longitude_destination= request.form['longitude_destination']
+        parcel.image_of_parcel = request.form['image_of_parcel']
+        parcel.receivers_name = request.form['receivers_name']
+        parcel.weight_of_parcel = request.form['weight_of_parcel']
+
+        db.session.commit()
+        return jsonify({"message": "Parcel updated successfully"}), 200
+    return render_template('edit_parcel.html', parcel=parcel)
+
+# Route for deleting a parcel
+@app.route('/parcel_list/<int:parcel_id>/delete', methods=['POST'])
+def delete_parcel(parcel_id):
+    parcel = ParcelOrder.query.get_or_404(parcel_id)
+    db.session.delete(parcel)
+    db.session.commit()
+    return jsonify({"message": "Parcel deleted successfully"}), 200
     
 
 

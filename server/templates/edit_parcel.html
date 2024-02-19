@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Parcel</title>
+</head>
+<body>
+    <h1>Edit Parcel</h1>
+    <form action="" method="post">
+        <label for="name_of_parcel">Parcel Name:</label><br>
+        <input type="text" id="name_of_parcel" name="name_of_parcel" value="{{ parcel.name_of_parcel }}"><br>
+        
+        <label for="pickup_location">Pickup Location:</label><br>
+        <input type="text" id="pickup_location" name="pickup_location" value="{{ parcel.pickup_location }}"><br>
+        
+        <label for="destination">Destination:</label><br>
+        <input type="text" id="destination" name="destination" value="{{ parcel.destination }}"><br>
+        
+        <label for="latitude_pick_up_location">Latitude Pickup Location:</label><br>
+        <input type="text" id="latitude_pick_up_location" name="latitude_pick_up_location" value="{{ parcel.latitude_pick_up_location }}"><br>
+        
+        <label for="longitude_pick_up_location">Longitude Pickup Location:</label><br>
+        <input type="text" id="longitude_pick_up_location" name="longitude_pick_up_location" value="{{ parcel.longitude_pick_up_location }}"><br>
+        
+        <label for="latitude_destination">Latitude Destination:</label><br>
+        <input type="text" id="latitude_destination" name="latitude_destination" value="{{ parcel.latitude_destination }}"><br>
+        
+        <label for="longitude_destination">Longitude Destination:</label><br>
+        <input type="text" id="longitude_destination" name="longitude_destination" value="{{ parcel.longitude_destination }}"><br>
+        
+        <label for="image_of_parcel">Image URL:</label><br>
+        <input type="text" id="image_of_parcel" name="image_of_parcel" value="{{ parcel.image_of_parcel }}"><br>
+        
+        <label for="receivers_name">Receiver's Name:</label><br>
+        <input type="text" id="receivers_name" name="receivers_name" value="{{ parcel.receivers_name }}"><br>
+        
+        <label for="weight_of_parcel">Weight of Parcel:</label><br>
+        <input type="text" id="weight_of_parcel" name="weight_of_parcel" value="{{ parcel.weight_of_parcel }}"><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

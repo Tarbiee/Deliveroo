@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcel Orders Page</title>
+</head>
+<body>
+    <h1>Parcel List</h1>
+    <table>
+        <tr>
+            <th>Parcel Name</th>
+        </tr>
+        {% for parcel in parcels %}
+        <tr>
+            <td>{{ parcel.name_of_parcel }}</td>
+            <td>
+                <a href="/parcel/{{ parcel.id }}">View Parcel</a> | 
+                <a href="/parcel/{{ parcel.id }}/edit">Edit Parcel</a> | 
+                <form action="/parcel/{{ parcel.id }}/delete" method="post" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
