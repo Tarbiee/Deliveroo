@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -33,6 +34,18 @@ class User(db.Model):
     # deleting user
     def delete_user(self):
         db.session.delete(self)
+        db.session.commit()
+
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer(), primary_key= True)
+    jti = jti = db.Column(db.String(), nullable=True)
+    create_at = db.Column(db.DateTime(), default= datetime.utcnow)
+
+    def __repr__(self):
+        return f"<Token {self.jti}>"
+    
+    def save_token(self):
+        db.session.add(self)
         db.session.commit()
 
 class ParcelOrder(db.Model):
