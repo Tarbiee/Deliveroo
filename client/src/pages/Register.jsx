@@ -27,7 +27,7 @@ export default function Register() {
                 alert("Passwords do not match");
                 return;
             }
-            const response = await axios.post('http://localhost:5555/auth/register',{
+            const response = await axios.post('http://localhost:5000/auth/register',{
                 username,
                 email,
                 password,

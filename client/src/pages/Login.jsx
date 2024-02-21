@@ -21,7 +21,7 @@ export default function Login() {
 
     const handleSubmit = async () => {
         try{
-            const response = await axios.post('http://localhost:5555/auth/login', {
+            const response = await axios.post('http://localhost:5000/auth/login', {
                 username,
                 password,
             })

@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home'
 import ContactUs from './components/ContactUs'
-import NavBar from './components/NavBar'
+// import NavBar from './components/NavBar'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
@@ -22,7 +22,7 @@ function App() {
   console.log("This is:", accessToken)
   return (
     <div >
-      <NavBar/>
+      {/* <NavBar/> */}
       <Routes>
         <Route path='/' element={<Login accessToken={accessToken}/>}/>
         <Route path='/register' element={<Register/>}/>
