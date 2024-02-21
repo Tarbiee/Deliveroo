@@ -2,7 +2,7 @@ from flask import Flask, jsonify, make_response, request, Blueprint
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt, current_user, get_jwt_identity
-from models import db,User, ParcelOrder, Tracker
+from models import db,User, ParcelOrder, Tracker, TokenBlocklist
 from flask_cors import CORS
 from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
 from datetime import datetime
@@ -90,6 +90,14 @@ def invalid_token_callback(error):
 @jwt.unauthorized_loader
 def missing_token_callback(error):
     return jsonify({"message": "Request doesnt contain a valid token", "error":"authorization_header"})
+
+@jwt.token_in_blocklist_loader
+def token_in_blockist_callback(jwt_header,jwt_data):
+    jti = jwt_data['jti']
+
+    token = db.session.query(TokenBlocklist).filter(TokenBlocklist.jti == jti).scalar()
+    
+    return token is not None
 
 @auth_bp.get('/whoami')
 @jwt_required()
