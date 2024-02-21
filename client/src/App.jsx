@@ -4,10 +4,11 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home'
 import ContactUs from './components/ContactUs'
-// import NavBar from './components/NavBar'
+//import NavBar from './components/NavBar'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
+import Orders from './pages/Orders';
 import './App.css';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
   
   console.log("This is:", accessToken)
   return (
-    <div >
+    <div className='App'>
       {/* <NavBar/> */}
       <Routes>
         <Route path='/' element={<Login accessToken={accessToken}/>}/>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/admin" element={<AdminDashboard/>}   /> 
         <Route path="/order" element={<OrderDetails/>} />
+        <Route path="/parcel_orders" element={<Orders accessToken={accessToken}/>} />
  
       </Routes>
    

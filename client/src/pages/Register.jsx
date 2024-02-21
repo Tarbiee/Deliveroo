@@ -27,7 +27,7 @@ export default function Register() {
                 alert("Passwords do not match");
                 return;
             }
-            const response = await axios.post('http://localhost:5000/auth/register',{
+            const response = await axios.post('http://localhost:5555/auth/register',{
                 username,
                 email,
                 password,
@@ -53,8 +53,10 @@ export default function Register() {
     <div className='login-container'> 
         
         <div className='login-content'>
+            <div className='lll'>
             <Image src={user} className='login-image'/>
-            <h3>Welcome Back!</h3>
+            </div>
+            <h3 className="text-2xl font-black text-gray-800"> Welcome Back!</h3>
             <p>Please sign in here to seamlessly continue tracking your parcel order!</p>
             <br></br>
         
@@ -63,7 +65,7 @@ export default function Register() {
         </div>
 
         <div className='register-form'>
-        <h2>Register form</h2>
+        <h2 className="text-2xl font-black text-gray-800">Register form</h2>
         <Row>
         <Col  className='image-container'>
           <Lottie animationData={Usericon} style={{height:'150px'}}/>

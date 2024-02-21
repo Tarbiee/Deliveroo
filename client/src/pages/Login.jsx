@@ -21,11 +21,11 @@ export default function Login() {
 
     const handleSubmit = async () => {
         try{
-            const response = await axios.post('http://localhost:5000/auth/login', {
+            const response = await axios.post('http://localhost:5555/auth/login', {
                 username,
                 password,
             })
-            console.log("AccessToken",response.data.tokens.access);
+            
             const { access, refresh } = response.data.tokens;
             localStorage.setItem('accessToken', access);
             localStorage.setItem('refreshToken', refresh);
@@ -50,7 +50,7 @@ export default function Login() {
   return (
     <div className='login-container'> 
         <div className='login-form'>
-        <h2>Sign In</h2>
+        <h2 className="text-2xl font-black text-gray-800">Sign In</h2>
         <Row>
         <Col  className='image-container'>
         <Lottie animationData={Usericon} style={{height:'150px'}}/>
@@ -79,8 +79,10 @@ export default function Login() {
         
         </div>
         <div className='login-content'>
-           <Image src={user} className='login-image'/>
-            <h3>Are you new here?</h3>
+          <div className='lll'>
+          <Image src={user} className='login-image'/>
+          </div>
+            <h3 className="text-2xl font-black text-gray-800">Are you new here?</h3>
             <p>Register with us today to gain access to tracking your parcel orders effortlessly</p>
             <br></br>
             
