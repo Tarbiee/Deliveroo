@@ -1,38 +1,75 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body{
+  margin: 0;
+  padding: 0;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: column; /*cover entire width*/
+  /* justify-content: center;
+  align-items: center; */
+  background-color: rgb(219, 230, 238);
+}
+.login-container{
+  background-color: #fff;
+  border-radius: 30px;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px;
+  display: flex;
+}
+.login-form{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(140, 195, 216);
+  border-radius: 0 100px 100px 0;
+  height: 100%;
+  width: 50%;
+}
+.login-form h2 {
+  margin: 0; /* Reset margin */
+  padding: 0; /* Reset padding */
 }
 
-.App-link {
-  color: #61dafb;
+.icons .svg-inline--fa{
+  font-size: 24px;
+  margin-right: 10px;
+  padding: 20px 10px; 
+  color: rgb(5, 70, 95);
+}
+.login-form form{
+  margin: 20px;
+}
+.user-image{
+  max-width: 250px;
+  max-height: 150px;
+  border-radius: 50%;
+}
+.image-container {
+  
+}
+.login-content{
+  width: 50%;
+}
+.register-form{
+  margin: 0;
+  padding: 0;
+  background-color: rgb(140, 195, 216);
+  border-radius: 100px 0 0 100px;
+  height: 100%;
+  width: 50%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.register-form form{
+  margin: 20px;
 }
+.login-image{
+  max-width: 250px;
+  height: 350px;
+  border-radius: 50%;
+}
+
