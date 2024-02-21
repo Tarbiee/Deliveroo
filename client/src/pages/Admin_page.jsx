@@ -14,7 +14,7 @@ export default function Admin_page({accessToken}) {
 
   return (
     <div>
-      <h1>Admin</h1>
+      <h1>Admin </h1>
      {users && users.map((user) => (
       <div key={user.id}>
         <p>{user.username}</p>
