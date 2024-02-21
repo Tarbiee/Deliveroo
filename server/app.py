@@ -154,6 +154,18 @@ def get_all_users():
     
     return jsonify ({"message": "You are not authorized to acces this"}), 401
 
+@user_bp.get('/all_parcel_orders')
+@jwt_required()
+def get_all_parcels():
+    claims = get_jwt()
+    if claims.get('is_admin') == True:
+        parcels = ParcelOrder.query.all()
+        result = ParcelOrderSchema().dump(parcels, many= True)
+        return jsonify(
+            result
+        ), 200
+    return jsonify({"message": "You are not authorized to access this"}), 401
+
 @user_bp.get('/parcel_orders')
 @jwt_required()
 def get_parcel_orders():
