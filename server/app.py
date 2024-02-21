@@ -113,6 +113,18 @@ def refresh_access():
 
     return jsonify({"access_token": new_access_token})
 
+@auth_bp.get('/logout')
+@jwt_required(verify_type=False)
+def logout_user():
+    jwt = get_jwt()
+
+    jti = jwt['jti']
+    token_type = jwt['type']
+
+    token_b = TokenBlocklist(jti=jti)
+    token_b.save_token()
+    return jsonify({"message": f"{token_type} token revoked successfullt"}), 200
+
 #endpoint
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
