@@ -2,8 +2,12 @@ import {useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom'
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home_page';
-import Admin from './pages/Admin_page';
+import Home from './pages/Home'
+import ContactUs from './components/ContactUs'
+import NavBar from './components/NavBar'
+import UserDashboard from './pages/UserDashboard'
+import AdminDashboard from './pages/AdminDashboard'
+import OrderDetails from './pages/OrderDetails'
 import './App.css';
 
 function App() {
@@ -17,12 +21,17 @@ function App() {
   
   console.log("This is:", accessToken)
   return (
-    <div className="App">
+    <div >
+      <NavBar/>
       <Routes>
         <Route path='/' element={<Login accessToken={accessToken}/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/home_page' element={<Home accessToken={accessToken}/>}/>
-        <Route path='/admin_page' element={<Admin accessToken={accessToken}/> }/>
+        <Route path="/home" element={<Home />} />
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/admin" element={<AdminDashboard/>}   /> 
+        <Route path="/order" element={<OrderDetails/>} />
+ 
       </Routes>
    
     </div>

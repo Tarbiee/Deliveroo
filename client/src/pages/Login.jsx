@@ -32,9 +32,9 @@ export default function Login() {
             setPassword("");
             setUsername("");
             if (username === "Stephanie Mechan") {
-                navigate('/admin_page');
+                navigate('/admin');
             } else {
-                navigate('/home_page');
+                navigate('/home');
             }
         }
         catch (error) {
