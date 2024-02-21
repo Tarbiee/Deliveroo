@@ -9,7 +9,7 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import Usericon from '../Usericon.json'
+import Usericon from './Usericon.json'
 import axios from 'axios';
 
 

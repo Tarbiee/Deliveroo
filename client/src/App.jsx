@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router-dom'
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './pages/Login';
+import Register from './Register';
 import Home from './components/Home_page';
 import Admin from './components/Admin_page';
 import './App.css';
