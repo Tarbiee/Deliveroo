@@ -5,12 +5,14 @@ from flask_jwt_extended import JWTManager, create_access_token, create_refresh_t
 from models import db,User, ParcelOrder, Tracker, TokenBlocklist
 from flask_cors import CORS
 from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app= Flask(__name__)
 app.secret_key = '059da2a0914a822c5b74b333'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///deliveroo.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 app.json.compact = False
 
 CORS(app)
@@ -99,6 +101,7 @@ def token_in_blockist_callback(jwt_header,jwt_data):
     
     return token is not None
 
+
 @auth_bp.get('/whoami')
 @jwt_required()
 def whoami():
@@ -125,6 +128,8 @@ def logout_user():
     token_b.save_token()
     return jsonify({"message": f"{token_type} token revoked successfullt"}), 200
 
+
+
 #endpoint
 app.register_blueprint(auth_bp, url_prefix='/auth')
 
@@ -143,9 +148,9 @@ def get_all_users():
         per_page = per_page
       )
       result = UserSchema().dump(users, many = True)
-      return jsonify({
-        "users": result,
-      }), 200
+      return jsonify(
+        result
+      ), 200
     
     return jsonify ({"message": "You are not authorized to acces this"}), 401
 
@@ -159,16 +164,9 @@ def get_parcel_orders():
     if user:
         parcel_orders = ParcelOrder.query.filter_by(user_id=user.id).all()
 
-        serialized_parcel_orders = [
-            {
-                'name_of_parcel': parcel.name_of_parcel,
-                'pickup_location': parcel.pickup_location,
-                'destination': parcel.destination,
-            }
-            for parcel in parcel_orders
-        ]
+        result = ParcelOrderSchema().dump(parcel_orders, many=True)
 
-        return jsonify({"parcel_orders": serialized_parcel_orders}), 200
+        return jsonify(result), 200
     else:
         return jsonify({"message": "User not found"}), 404
     
@@ -202,9 +200,9 @@ def create_parcel_order():
         db.session.commit()
 
         parcel_order_schema = ParcelOrderSchema()
-        serialized_parcel_order = parcel_order_schema.dump(new_parcel_order)
+        result = parcel_order_schema.dump(new_parcel_order)
 
-        return jsonify(serialized_parcel_order), 201
+        return jsonify(result), 201
     else:
         return jsonify({"message": "User not found"}), 404
     
@@ -223,8 +221,8 @@ def edit_parcel(parcel_order_id):
             db.session.commit()
 
             parcel_order_schema = ParcelOrderSchema()
-            serialize_parcel_order = parcel_order_schema.dump(parcel_order)
-            return jsonify({"message": "Parcel_order edited succassfully","parcel_order":serialize_parcel_order}), 200
+            result = parcel_order_schema.dump(parcel_order)
+            return jsonify(result), 200
         else:
             return jsonify({"message": "Parcel order not found"}), 404
 
@@ -292,7 +290,7 @@ def update_parcel_order(parcel_order_id):
 
                     tracker_schema = TrackerSchema()
                     serialized_tracker = tracker_schema.dump(tracker)
-                    return jsonify({"message": "Parcel order updated successfully", "tracker": serialized_tracker}), 200
+                    return jsonify(serialized_tracker), 200
             else:
                 return jsonify({"message": "Tracker not found for the parcel order"}), 404
         else:
