@@ -9,7 +9,7 @@ import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
 import './App.css';
- //import ParcelOrdersPage from './pages/ParcelOrdersPage';
+import ParcelOrdersPage from './pages/ParcelOrdersPage';
 
 function App() {
   const [accessToken, setAccessToken] = useState(localStorage.getItem("accessToken"))
@@ -32,7 +32,7 @@ function App() {
         <Route path="/dashboard" element={<UserDashboard />} />
         <Route path="/admin" element={<AdminDashboard/>}   /> 
         <Route path="/order" element={<OrderDetails/>} />
-        {/* <Route path="/parcelorders" element={<ParcelOrdersPage accessToken={accessToken} />} /> */}
+        <Route path="/parcelorders" element={<ParcelOrdersPage accessToken={accessToken} />} />
  
       </Routes>
    
