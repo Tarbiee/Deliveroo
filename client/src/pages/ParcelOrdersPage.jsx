@@ -41,4 +41,24 @@ console.log ( "message", " these are your parcels", parcel)
     );
 };
 
-export default Parcel;
+// ParcelList component
+const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNameChange }) => (
+    <div className="parcel-list">
+        {parcels && parcels.length > 0 ? (
+            parcels.map(parcel => (
+                <Parcel
+                    key={parcel.id}
+                    parcel={parcel}
+                    onView={onView}
+                    onEdit={onEdit}
+                    onDelete={onDelete}
+                    handleNameChange={handleNameChange}
+                />
+            ))
+        ) : (
+            <p>No parcels available</p>
+        )}
+    </div>
+);
+
+export default ParcelList;
