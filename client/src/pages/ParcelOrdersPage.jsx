@@ -44,6 +44,7 @@ const Parcel = ({ parcel, onView, onEdit, onDelete, handleNewDestination }) => {
                 </Button>
             </div>
 
+
             <Modal show={showEditModal} onHide={handleEditModalClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Parcel Destination</Modal.Title>
@@ -128,10 +129,39 @@ const ParcelOrdersPage = ({ accessToken }) => {
     const handleEditParcel = (destination) => {
         console.log('Editing parcel destination:', destination);
     };
+
+    const handleDeleteParcel = async (parcelId) => {
+        const confirmDelete = window.confirm('Are you sure you want to cancel this order?');
+        if (!confirmDelete) {
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/users/delete_parcel/${parcelId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+
+            if (response.ok) {
+                setParcels(parcels.filter(parcel => parcel.id !== parcelId));
+
+                if (selectedParcel && selectedParcel.id === parcelId) {
+                    setSelectedParcel(null);
+                }
+
+                console.log('Parcel order cancelled successfully!');
+            } else {
+                console.error('Failed!');
+            }
+        } catch (error) {
+            console.error('Error deleting parcel:', error);
+        }
+    };
     
 
     const handleNewDestination = (e, parcelId) => {
-
         const newDestination = e.target.value;
         console.log('New destination for parcel', parcelId, ':', newDestination);
     };
@@ -143,6 +173,7 @@ const ParcelOrdersPage = ({ accessToken }) => {
                 parcels={parcels}
                 onView={handleViewParcel}
                 onEdit={handleEditParcel}
+                onDelete={handleDeleteParcel}
                 handleNewDestination={handleNewDestination}
             />
 
