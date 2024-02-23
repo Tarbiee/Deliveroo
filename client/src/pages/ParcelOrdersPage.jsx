@@ -1,18 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Modal, Form, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // Parcel component
-const Parcel = ({ parcel, onView, onEdit, onDelete, }) => {
-   
-console.log ( "message", " these are your parcels", parcel)
+const Parcel = ({ parcel, onView, onEdit, onDelete, handleNameChange }) => {
     return (
         <div className="parcel">
-            {/* <p>Parcel Name: {parcel.name_of_parcel}</p>
-            <p>Receiver's Name: {parcel.receivers_name}</p>
-            <p>Pickup Location: {parcel.pickup_location}</p>
-            <p>Destination: {parcel.destination}</p>
-            <p>Weight: {parcel.weight_of_parcel} kg</p>
-            <img src={parcel.image_of_parcel} alt="Parcel" /> */}
-
             <Form.Group className="mb-3" controlId={`parcelName-${parcel.id}`}>
                 <Form.Control 
                     type="text"
@@ -63,15 +57,14 @@ const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNameChange }) => 
 
 
 // ParcelOrdersPage component
-const ParcelOrdersPage = ({accessToken}) => {
+const ParcelOrdersPage = ({ accessToken }) => {
     const [parcels, setParcels] = useState([]);
+    const [selectedParcel, setSelectedParcel] = useState(null);
 
     const handleNameChange = (e, parcelId) => {
         const newName = e.target.value;
-
         console.log('New name for parcel', parcelId, ':', newName);
     };
-
 
     useEffect(() => {
         fetchParcels();
@@ -84,44 +77,24 @@ const ParcelOrdersPage = ({accessToken}) => {
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-            const data = await response.json();
-            console.log('Fetched parcels:', data);
-            setParcels(data);
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Fetched parcels:', data);
+                setParcels(data);
+            } else {
+                console.error('Failed to fetch parcels');
+            }
         } catch (error) {
             console.error('Error fetching parcels:', error);
         }
     };
 
-
     const handleViewParcel = (parcel) => {
-        console.log('View details for', parcel.name_of_parcel);
-    
+        setSelectedParcel(parcel);
     };
 
-    const handleEditParcel = (parcel, newName) => {
-        console.log('Edit details for', parcel.name_of_parcel, 'New name:', newName);
-    
-    };
-
-    const handleDeleteParcel = async (parcel) => {
-        console.log('Delete', parcel.name_of_parcel);
-    
-        try {
-            const response = await fetch(`/users/delete_parcel/${parcel.id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-                }
-            });
-            if (response.ok) {
-            
-                setParcels(prevParcels => prevParcels.filter(p => p.id !== parcel.id));
-            } else {
-                console.error('Error deleting parcel');
-            }
-        } catch (error) {
-            console.error('Error deleting parcel:', error);
-        }
+    const handleCloseModal = () => {
+        setSelectedParcel(null);
     };
 
     return (
@@ -130,10 +103,24 @@ const ParcelOrdersPage = ({accessToken}) => {
             <ParcelList
                 parcels={parcels}
                 onView={handleViewParcel}
-                onEdit={handleEditParcel}
-                onDelete={handleDeleteParcel}
-                handleNameChange={handleNameChange}
+                onEdit={() => {}}
+                onDelete={() => {}}
+                handleNameChange={() => {}}
             />
+
+            <Modal show={selectedParcel !== null} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Parcel Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <pre>{JSON.stringify(selectedParcel, null, 2)}</pre>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
