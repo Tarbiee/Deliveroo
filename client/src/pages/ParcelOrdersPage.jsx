@@ -4,14 +4,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 // Parcel component
-const Parcel = ({ parcel, onView, onEdit, onDelete, handleNameChange }) => {
+const Parcel = ({ parcel, onView, onEdit, onDelete, handleNewDestination }) => {
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [newDestination, setNewDestination] = useState(parcel.destination);
+
+    const handleEditModalClose = () => {
+        setShowEditModal(false);
+    };
+
+    const handleEditModalSave = () => {
+        onEdit(newDestination);
+        setShowEditModal(false);
+    };
+
     return (
         <div className="parcel">
             <Form.Group className="mb-3" controlId={`parcelName-${parcel.id}`}>
                 <Form.Control 
                     type="text"
                     value={parcel.name_of_parcel}
-                    onChange={(e) => handleNameChange(e, parcel.id)}
+                    onChange={(e) => handleNewDestination(e, parcel.id)}
                     placeholder="Parcel Name" 
                 />
             </Form.Group>
@@ -22,21 +34,43 @@ const Parcel = ({ parcel, onView, onEdit, onDelete, handleNameChange }) => {
                 </Button>
             </div>
             <div className="parcel-section">
-                <Button variant="primary" onClick={() => onEdit(parcel)}>
-                    <FontAwesomeIcon icon={faEdit} /> Edit Parcel
+                <Button variant="primary" onClick={() => setShowEditModal(true)}>
+                    <FontAwesomeIcon icon={faEdit} /> Edit Parcel Destination
                 </Button>
             </div>
             <div className="parcel-section">
-                <Button variant="primary" onClick={() => onDelete(parcel)}>
+                <Button variant="primary" onClick={() => onDelete(parcel.id)}>
                     <FontAwesomeIcon icon={faTrash} /> Delete Parcel
                 </Button>
             </div>
+
+            <Modal show={showEditModal} onHide={handleEditModalClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Edit Parcel Destination</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form.Control 
+                        type="text"
+                        value={newDestination}
+                        onChange={(e) => setNewDestination(e.target.value)}
+                        placeholder="New Destination" 
+                    />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleEditModalClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleEditModalSave}>
+                        Save Changes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
 
 // ParcelList component
-const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNameChange }) => (
+const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNewDestination }) => (
     <div className="parcel-list">
         {parcels && parcels.length > 0 ? (
             parcels.map(parcel => (
@@ -46,7 +80,7 @@ const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNameChange }) => 
                     onView={onView}
                     onEdit={onEdit}
                     onDelete={onDelete}
-                    handleNameChange={handleNameChange}
+                    handleNewDestination={handleNewDestination}
                 />
             ))
         ) : (
@@ -55,16 +89,10 @@ const ParcelList = ({ parcels, onView, onEdit, onDelete, handleNameChange }) => 
     </div>
 );
 
-
 // ParcelOrdersPage component
 const ParcelOrdersPage = ({ accessToken }) => {
     const [parcels, setParcels] = useState([]);
     const [selectedParcel, setSelectedParcel] = useState(null);
-
-    const handleNameChange = (e, parcelId) => {
-        const newName = e.target.value;
-        console.log('New name for parcel', parcelId, ':', newName);
-    };
 
     useEffect(() => {
         fetchParcels();
@@ -97,15 +125,25 @@ const ParcelOrdersPage = ({ accessToken }) => {
         setSelectedParcel(null);
     };
 
+    const handleEditParcel = (destination) => {
+        console.log('Editing parcel destination:', destination);
+    };
+    
+
+    const handleNewDestination = (e, parcelId) => {
+
+        const newDestination = e.target.value;
+        console.log('New destination for parcel', parcelId, ':', newDestination);
+    };
+
     return (
         <div className="page-container">
             <h1>Parcel List</h1>
             <ParcelList
                 parcels={parcels}
                 onView={handleViewParcel}
-                onEdit={() => {}}
-                onDelete={() => {}}
-                handleNameChange={() => {}}
+                onEdit={handleEditParcel}
+                handleNewDestination={handleNewDestination}
             />
 
             <Modal show={selectedParcel !== null} onHide={handleCloseModal}>
