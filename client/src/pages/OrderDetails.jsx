@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useParams } from 'react-router-dom'
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css"
 import { IoCallOutline } from "react-icons/io5";
@@ -5,7 +7,30 @@ import Footer from "../components/Footer";
 
 function OrderDetails() {
 
-  const position = [51.505, -0.09]
+  const {id} = useParams()
+
+
+
+
+  const orderDetail = async ({accessToken}) => {
+    try {
+      const response = await fetch(`http://localhost:5000/users/parcel_order/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        }
+      })
+      const data = await response.json()
+      console.log(data)
+    }
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  useEffect(() => {
+    orderDetail()
+  }, [])
 
 
   return (

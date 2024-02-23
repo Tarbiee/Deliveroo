@@ -3,14 +3,12 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [openNavbar, setOpenNavbar] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
   const [svg, setSvg] = useState("backdrop-blur-md bg-white/10");
   const [textColor, setTextColor] = useState("text-black");
   const [mobileBg, setMobileBg] = useState("bg-white/80");
 
 
-  const showDropdown = () => setDropdown(true);
-  const hideDropdown = () => setDropdown(false);
+  
 
   useEffect(() => {
     const changeBackground = () => {
@@ -53,54 +51,30 @@ const Navbar = () => {
         </div>
         <div
           className={`
-                fixed inset-x-0 h-[100dvh] lg:h-max top-0  lg:translate-y-0 lg:opacity-100 left-0 ${mobileBg}  lg:!bg-transparent py-32 lg:py-0 px-5 sm:px-10 md:px-12 lg:px-0 w-full lg:top-0 lg:relative  lg:flex lg:justify-between duration-300 ease-linear
+                fixed inset-x-0 h-[100dvh] lg:h-max top-0  lg:translate-y-0 lg:opacity-100 lg:visible left-0 ${mobileBg}  lg:!bg-transparent py-32 lg:py-0 px-5 sm:px-10 md:px-12 lg:px-0 w-full lg:top-0 lg:relative  lg:flex lg:justify-between duration-300 ease-linear
                 ${
                   openNavbar
                     ? ""
-                    : " -translate-y-10 opacity-0 invisible lg:visible"
+                    : " -translate-y-10 opacity-0 invisible md:visible lg:opacity-100 lg:visible"
                 }
             `}
         >
           <ul onClick={() => {
               toggleNavbar();
-            }} className={`flex flex-col lg:flex-row gap-6 lg:items-center   text-gray-950  lg:w-full lg:justify-center lg:text-lg`}>
+            }} className={`flex flex-col lg:flex-row gap-6 lg:items-center    text-gray-950  lg:w-full lg:justify-center lg:text-lg`}>
               <li >
                 <NavLink to="/"className="relative py-2.5 duration-300 ease-linear hover:text-blue-600  ">
                     Home
                 </NavLink>
                 
               </li>
-              {/* <li>
-                <NavLink to="/about" className="relative py-2.5 duration-300 ease-linear hover:text-blue-600 ">
-                    About Us
-                </NavLink>
-              </li> */}
-              <li className=" relative" onMouseEnter={() => {
-                    if (window.innerWidth >= 768) {
-                      showDropdown()
-                    }
-                  }}
-            onMouseLeave={() => {
-              if (window.innerWidth >= 768) {
-                hideDropdown()
-              }
-            }}>
+             
+              <li className=" relative"    >
                 <NavLink to="/dashboard" className="relative py-2.5 duration-300 ease-linear hover:text-blue-600 ">
                     Parcel
                 </NavLink>
-                {/* {dropdown && (
-              <div className="  absolute   left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
-                <div className="py-1 " role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                  <NavLink to="/services/guarding-services" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900   border-b-2 border-slate-500/25 " role="menuitem">Guarding Services</NavLink>
-                  <NavLink to="/services/alarms" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 border-b-2 border-slate-500/25" role="menuitem">Alarms and Response</NavLink>
-                  <NavLink to="/services/electronic-security" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 border-b-2 border-slate-500/25" role="menuitem">Electronic Security Systems</NavLink>
-                  <NavLink to="/services/dog-handler" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 " role="menuitem">Security Personnel and K9</NavLink>
-
-                </div>
-              </div>
-            )} */}
-              </li>
               
+              </li>          
              
               
            

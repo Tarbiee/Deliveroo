@@ -4,7 +4,7 @@ import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
 import Orders from "./Orders";
 import CreateOrder from "./CreateOrder";
-function UserDashboard() {
+function UserDashboard({accessToken}) {
   return (
     <>
       <div className="bg-slate-200 flex h-screen">
@@ -105,12 +105,12 @@ function UserDashboard() {
               id="dashboard-main"
               className="h-[calc(100vh-10rem)] overflow-auto px-4 py-10"
             >
-              <Routes>
+              {/* <Routes>
                 <Route path="/orders" element={<Orders />} />
                 <Route path="/create-order" element={<CreateOrder />} />
-              </Routes>
+              </Routes> */}
              
-              {/* <CreateOrder /> */}
+              <CreateOrder accessToken={accessToken} />
             </main>
           </div>
           {/* /Main */}
