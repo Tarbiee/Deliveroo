@@ -59,6 +59,9 @@ function Orders({accessToken}) {
         <h1 className="text-2xl font-black text-gray-800">Hello there!</h1>
       <p className="mb-6 text-gray-600">Here's are your orders.</p>
       <div style={{marginLeft:'50px', marginRight:'50px'}}>
+        {parcelOrders.length === 0? (
+          <p>No parcel orders found since you are a new user.</p>
+        ): (
       <Table responsive>
             <thead>
               <tr>
@@ -87,10 +90,9 @@ function Orders({accessToken}) {
               ))}
             </tbody>
           </Table>
+          )}
       </div>
-        </div>
-
-      
+      </div>
     </div>
   )
 }

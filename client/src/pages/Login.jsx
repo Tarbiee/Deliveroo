@@ -15,7 +15,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 export default function Login() {
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
@@ -85,12 +84,14 @@ export default function Login() {
           </div>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Control type="text"
+         name='username'
          value={username}
          onChange={(e) => setUsername(e.target.value)}
          placeholder="username" />
       </Form.Group>
       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Control type="password"
+         name='password'
          value={password}
          onChange={(e) => setPassword(e.target.value)}
          placeholder="password" />

@@ -37,15 +37,11 @@ const Navbar = () => {
       <nav className="relative mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5 flex gap-x-5 justify-between items-center">
         <div className="flex items-center min-w-max relative">
           <NavLink to="/" className="font-semibold flex items-center gap-x-2">
-            <div className="flex items-center -space-x-3">
-              <img
-                src="/logo.png"
-                alt="logo"
-                className=" lg:w-[75px] lg:h-[75px] w-[30px] h-[30px] transform scale-x-[-1] "
-              />
-            </div>
-            <span className={`lg:text-2xl font-ubuntu border-b-2 border-blue-600/40 ${textColor}` }>
-              Deliveroo
+            <span className="">
+              <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
+                D
+              </span>
+              <span className="text-xl">eliveroo</span>
             </span>
           </NavLink>
         </div>

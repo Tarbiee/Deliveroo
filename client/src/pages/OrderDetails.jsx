@@ -14,7 +14,7 @@ function OrderDetails() {
 
   const orderDetail = async ({accessToken}) => {
     try {
-      const response = await fetch(`http://localhost:5000/users/parcel_order/${id}`, {
+      const response = await fetch(`http://localhost:5555/users/parcel_order/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

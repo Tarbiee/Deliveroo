@@ -42,7 +42,7 @@ function CreateOrder({accessToken}) {
     try {
       const imageUrl = await uploadImage(newOrder.image_of_parcel);
       newOrder.image_of_parcel = imageUrl;
-      const response = await fetch("http://localhost:5000/users/add_parcel_order", {
+      const response = await fetch("http://localhost:5555/users/add_parcel_order", {
         method: "POST",
         
         headers: {

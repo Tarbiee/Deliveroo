@@ -1,7 +1,14 @@
 import "./UserDashboard.css";
+import React,{useEffect, useState} from 'react'
 import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
-function AdminDashboard() {
+import { Link } from "react-router-dom";
+
+
+function AdminDashboard({accessToken}) {
+  const [parcelOrders, setParcelOrders] = useState([])
+
+  
   return (
 
     <div className="bg-slate-200 flex h-screen">
@@ -41,20 +48,20 @@ function AdminDashboard() {
           </div>
           <ul className="mt-8 space-y-3 md:mt-20">
             <li className="relative">
-              <button className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+              <Link to="/all_orders" className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
                 <span>
                 <CiBoxList className=" text-3xl" />
                 </span>
                 <span className="">Orders</span>
-              </button>
+              </Link>
             </li>
             <li className="relative">
-              <button className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+              <Link to="/all_users" className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
                 <span>
                 <IoCreateSharp className=" text-3xl" />
                 </span>
                 <span className="">Users</span>
-              </button>
+              </Link>
             </li>
           </ul>
 
@@ -170,9 +177,9 @@ function AdminDashboard() {
             id="dashboard-main"
             className="h-[calc(100vh-10rem)] overflow-auto px-4 py-10"
           >
-            <h1 className="text-2xl font-black text-gray-800">Hello there!</h1>
+            <h1 className="text-2xl font-black text-gray-800">ADMIN DASHBOARD</h1>
             <p className="mb-6 text-gray-600">
-              Here's are your orders.
+              List of all the orders
             </p>
             
           </main>

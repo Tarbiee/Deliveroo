@@ -11,7 +11,6 @@ import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
 import Orders from './pages/Orders';
 import Allorders from './pages/Allorders';
-import Allusers from './pages/Allusers';
 import EditParcel from './pages/EditParcel';
 import './App.css';
 
@@ -26,7 +25,7 @@ function App() {
   
   console.log("This is:", accessToken)
   return (
-    <div >
+    <div  className="App">
       <ToastContainer />
       <Routes>
         <Route path='/' element={<Login />}/>
@@ -38,7 +37,6 @@ function App() {
         <Route path="/order" element={<OrderDetails accessToken={accessToken}/>} />
         <Route path="/parcel_orders" element={<Orders accessToken={accessToken}/>} />
         <Route path="/all_orders" element={<Allorders accessToken={accessToken}/>} />
-        <Route path="/all_users" element={<Allusers accessToken={accessToken}/>} />
         <Route path="/edit_parcel/:id" element={<EditParcel accessToken={accessToken}/>} />
  
       </Routes>

@@ -154,6 +154,18 @@ def get_all_users():
     
     return jsonify ({"message": "You are not authorized to acces this"}), 401
 
+@user_bp.get('/all_parcel_orders')
+@jwt_required()
+def get_all_parcels():
+    claims = get_jwt()
+    if claims.get('is_admin') == True:
+        parcels = ParcelOrder.query.all()
+        result = ParcelOrderSchema().dump(parcels, many= True)
+        return jsonify(
+            result
+        ), 200
+    return jsonify({"message": "You are not authorized to access this"}), 401
+
 @user_bp.get('/parcel_orders')
 @jwt_required()
 def get_parcel_orders():
@@ -189,8 +201,7 @@ def create_parcel_order():
             latitude_pick_up_location=data.get('latitude_pick_up_location'),
             longitude_pick_up_location=data.get('longitude_pick_up_location'),
             latitude_destination=data.get('latitude_destination'),
-            longitude_destination=data.get('longitude_destination'),
-            receivers_phone=data.get('receivers_phone'),
+            longitude_destination=data.get('llongitude_destination'),
             image_of_parcel=data.get('image_of_parcel'),
             receivers_name=data.get('receivers_name'),
             weight_of_parcel=data.get('weight_of_parcel'),

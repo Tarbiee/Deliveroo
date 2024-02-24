@@ -43,7 +43,7 @@ with app.app_context():
                 destination=fake.address(),
                 latitude_pick_up_location=fake.latitude(),
                 longitude_pick_up_location=fake.longitude(),
-                latitude_destination=fake.longitude(),
+                latitude_destination=fake.latitude(),
                 longitude_destination=fake.longitude(),
                 image_of_parcel=fake.image_url(),
                 receivers_name=fake.name(),

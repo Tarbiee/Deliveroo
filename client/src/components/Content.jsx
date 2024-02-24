@@ -9,13 +9,13 @@ function Content() {
 time with safety. Because your emergency
 
 is our first priority</p>             
-    <div>
+    <div className="flex justify-center items-center w-full">
           <video
                     src='/adv.mp4'
                     loop={true}                    
                     autoPlay
                     muted
-                    className=' w-screen  h-full mt-5 lg:mt-0 '
+                    className=' w-3/4  h-30 mt-5 lg:mt-0 '
                 />
     </div>
     </section>
