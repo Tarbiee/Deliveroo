@@ -76,7 +76,9 @@ function Orders({accessToken}) {
                 <tr key={parcelOrder.id}>
                   <td>{parcelOrder.name_of_parcel}</td>
                   <td>
+                    <Link to={`/order/${parcelOrder.id}`}>
                     <Button style={{color:"blue"}}>View Parcel</Button>
+                    </Link>
                   </td>
                   <td>
                     <Link to={`/edit_parcel/${parcelOrder.id}`}>

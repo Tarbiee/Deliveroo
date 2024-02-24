@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css"
 import { IoCallOutline } from "react-icons/io5";
 import Footer from "../components/Footer";
 
-function OrderDetails() {
+function OrderDetails({accessToken}) {
 
   const {id} = useParams()
 
@@ -30,7 +30,7 @@ function OrderDetails() {
   }
   useEffect(() => {
     orderDetail()
-  }, [])
+  }, [id,accessToken])
 
 
   return (

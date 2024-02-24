@@ -34,7 +34,7 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/dashboard" element={<UserDashboard accessToken={accessToken} />} />
         <Route path="/admin" element={<AdminDashboard/>}   /> 
-        <Route path="/order" element={<OrderDetails accessToken={accessToken}/>} />
+        <Route path="/order/:id" element={<OrderDetails accessToken={accessToken}/>} />
         <Route path="/parcel_orders" element={<Orders accessToken={accessToken}/>} />
         <Route path="/all_orders" element={<Allorders accessToken={accessToken}/>} />
         <Route path="/edit_parcel/:id" element={<EditParcel accessToken={accessToken}/>} />
