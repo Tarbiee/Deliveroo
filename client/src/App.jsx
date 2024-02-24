@@ -10,6 +10,7 @@ import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
 import Orders from './pages/Orders';
+import Allorders from './pages/Allorders';
 import './App.css';
 
 function App() {
