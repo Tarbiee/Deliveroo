@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import Usericon from '../Usericon.json';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -21,16 +23,26 @@ export default function Login() {
 
     const handleSubmit = async () => {
         try{
-            const response = await axios.post('http://localhost:5000/auth/login', {
+            const response = await axios.post('http://localhost:5555/auth/login', {
                 username,
                 password,
             })
-            console.log("AccessToken",response.data.tokens.access);
+            
             const { access, refresh } = response.data.tokens;
             localStorage.setItem('accessToken', access);
             localStorage.setItem('refreshToken', refresh);
             setPassword("");
             setUsername("");
+            toast.success(' 👤 User logged in successfuly!', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
             if (username === "Stephanie Mechan") {
                 navigate('/admin');
             } else {
@@ -39,7 +51,16 @@ export default function Login() {
         }
         catch (error) {
             console.error('Error logging in:', error);
-            alert('Error logging in. Please check your credentials and try again.');
+            toast.error('⛔ Error logging in. Please check your credentials and try again.!', {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+              });
           }
         
     }
@@ -50,7 +71,7 @@ export default function Login() {
   return (
     <div className='login-container'> 
         <div className='login-form'>
-        <h2>Sign In</h2>
+        <h2 className="text-2xl font-black text-gray-800">Sign In</h2>
         <Row>
         <Col  className='image-container'>
         <Lottie animationData={Usericon} style={{height:'150px'}}/>
@@ -79,8 +100,10 @@ export default function Login() {
         
         </div>
         <div className='login-content'>
-           <Image src={user} className='login-image'/>
-            <h3>Are you new here?</h3>
+          <div className='lll'>
+          <Image src={user} className='login-image'/>
+          </div>
+            <h3 className="text-2xl font-black text-gray-800">Are you new here?</h3>
             <p>Register with us today to gain access to tracking your parcel orders effortlessly</p>
             <br></br>
             
