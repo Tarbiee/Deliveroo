@@ -9,6 +9,7 @@ import ContactUs from './components/ContactUs'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
+import Orders from './pages/Orders';
 import './App.css';
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route path="/dashboard" element={<UserDashboard accessToken={accessToken} />} />
         <Route path="/admin" element={<AdminDashboard/>}   /> 
         <Route path="/order" element={<OrderDetails accessToken={accessToken}/>} />
+        <Route path="/parcel_orders" element={<Orders accessToken={accessToken}/>} />
  
       </Routes>
    
