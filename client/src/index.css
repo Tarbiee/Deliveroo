@@ -1,3 +1,85 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+
+.App {
+    text-align: center;
+  }
+  body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /*cover entire width*/
+    /* justify-content: center;
+    align-items: center; */
+    background-color: rgb(219, 230, 238);
+  }
+  .login-container{
+    background-color: #fff;
+    border-radius: 30px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 600px;
+    display: flex;
+  }
+  .login-form{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(140, 195, 216);
+    border-radius: 0 100px 100px 0;
+    height: 100%;
+    width: 50%;
+  }
+  .login-form h2 {
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+  }
+  
+  .icons .svg-inline--fa{
+    font-size: 24px;
+    margin-right: 10px;
+    padding: 20px 10px; 
+    color: rgb(5, 70, 95);
+  }
+  .login-form form{
+    margin: 20px;
+  }
+  .user-image{
+    max-width: 250px;
+    max-height: 150px;
+    border-radius: 50%;
+  }
+  .login-content{
+    width: 50%;
+    text-align: center;
+  }
+  .register-form{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(140, 195, 216);
+    border-radius: 100px 0 0 100px;
+    height: 100%;
+    width: 50%;
+  }
+  
+  .register-form form{
+    margin: 20px;
+  }
+  .login-image{
+    max-width: 250px;
+    height: 350px;
+    border-radius: 50%;
+  }
+  .lll{
+      padding-left: 60px
+  }
+  .homepage{
+      padding-left: 100px;
+      padding-right: 100px
+  }
+  
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;

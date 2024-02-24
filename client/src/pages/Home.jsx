@@ -8,15 +8,17 @@ import NavBar from "../components/NavBar"
 
 function Home() {
   return (
-    <>
-    <NavBar/>
+    <div className="homepage">
+      <NavBar/>
         <Hero />
         <Features />
         <Content/>
         <Testimonials />
         <ContactUs />
         <Footer />
-    </>
+    </div>
+    
+    
   )
 }
 export default Home
