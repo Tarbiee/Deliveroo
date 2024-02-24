@@ -277,6 +277,26 @@ def get_parcel_order_details(parcel_order_id):
     else:
         return jsonify({"message":"User not found"}), 404
 
+@user_bp.get('/parcel_status/<int:parcel_order_id>')
+@jwt_required()
+def get_parcel_order_status(parcel_order_id):
+    current_username = get_jwt_identity()
+    user = User.get_user_by_username(username= current_username)
+
+    if user:
+        parcel_order = ParcelOrder.query.get(parcel_order_id)
+        status = Tracker.query.filter_by(parcel_id=parcel_order.id).first()
+
+        if status:
+            tracker_schems = TrackerSchema()
+            result = tracker_schems.dump(status)
+            return jsonify(result),200
+
+        else:
+          return jsonify({"message": "Status not found"})
+    else:
+        return jsonify({"message":"User not found"}), 404
+
 #endpoint
 app.register_blueprint(user_bp, url_prefix='/users')
 

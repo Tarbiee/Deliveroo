@@ -29,7 +29,6 @@ export default function Login() {
             
             const { access, refresh } = response.data.tokens;
             localStorage.setItem('accessToken', access);
-            localStorage.setItem('refreshToken', refresh);
             setPassword("");
             setUsername("");
             toast.success(' 👤 User logged in successfuly!', {
