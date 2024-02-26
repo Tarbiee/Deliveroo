@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
@@ -35,6 +36,18 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+class TokenBlocklist(db.Model):
+    id = db.Column(db.Integer(), primary_key= True)
+    jti = jti = db.Column(db.String(), nullable=True)
+    create_at = db.Column(db.DateTime(), default= datetime.utcnow)
+
+    def __repr__(self):
+        return f"<Token {self.jti}>"
+    
+    def save_token(self):
+        db.session.add(self)
+        db.session.commit()
+
 class ParcelOrder(db.Model):
     __tablename__ = 'parcel_orders'
     id = db.Column(db.Integer, primary_key= True)
@@ -44,19 +57,22 @@ class ParcelOrder(db.Model):
     latitude_pick_up_location= db.Column(db.Float)
     longitude_pick_up_location = db.Column(db.Float)
     latitude_destination= db.Column(db.Float)
+    receivers_phone = db.Column(db.String(50))
     longitude_destination= db.Column(db.Float)
     image_of_parcel = db.Column(db.String)
     receivers_name = db.Column(db.String(50))
+    receivers_phone = db.Column(db.String(50))
     weight_of_parcel = db.Column(db.Integer)
-
+    created_at = db.Column (db.DateTime, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tracker = db.relationship('Tracker',uselist=False, backref='parcel_order')
+
 
 class Tracker(db.Model):
     __tablename__ = 'trackers'
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(50), default= 'preparing')
     present_location = db.Column(db.String(50))
-    delivery_date = db.Column (db.DateTime, default='preparing')
+    delivery_date = db.Column (db.DateTime, default = datetime.utcnow)
 
     parcel_id = db.Column(db.Integer, db.ForeignKey('parcel_orders.id'))

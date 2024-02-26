@@ -2,15 +2,17 @@ from flask import Flask, jsonify, make_response, request, Blueprint
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, jwt_required, get_jwt, current_user, get_jwt_identity
-from models import db,User, ParcelOrder, Tracker
+from models import db,User, ParcelOrder, Tracker, TokenBlocklist
 from flask_cors import CORS
 from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app= Flask(__name__)
 app.secret_key = '059da2a0914a822c5b74b333'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///deliveroo.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 app.json.compact = False
 
 CORS(app)
@@ -91,6 +93,15 @@ def invalid_token_callback(error):
 def missing_token_callback(error):
     return jsonify({"message": "Request doesnt contain a valid token", "error":"authorization_header"})
 
+@jwt.token_in_blocklist_loader
+def token_in_blockist_callback(jwt_header,jwt_data):
+    jti = jwt_data['jti']
+
+    token = db.session.query(TokenBlocklist).filter(TokenBlocklist.jti == jti).scalar()
+    
+    return token is not None
+
+
 @auth_bp.get('/whoami')
 @jwt_required()
 def whoami():
@@ -104,6 +115,20 @@ def refresh_access():
     new_access_token = create_access_token(identity=identity)
 
     return jsonify({"access_token": new_access_token})
+
+@auth_bp.get('/logout')
+@jwt_required(verify_type=False)
+def logout_user():
+    jwt = get_jwt()
+
+    jti = jwt['jti']
+    token_type = jwt['type']
+
+    token_b = TokenBlocklist(jti=jti)
+    token_b.save_token()
+    return jsonify({"message": f"{token_type} token revoked successfullt"}), 200
+
+
 
 #endpoint
 app.register_blueprint(auth_bp, url_prefix='/auth')
@@ -123,11 +148,23 @@ def get_all_users():
         per_page = per_page
       )
       result = UserSchema().dump(users, many = True)
-      return jsonify({
-        "users": result,
-      }), 200
+      return jsonify(
+        result
+      ), 200
     
     return jsonify ({"message": "You are not authorized to acces this"}), 401
+
+@user_bp.get('/all_parcel_orders')
+@jwt_required()
+def get_all_parcels():
+    claims = get_jwt()
+    if claims.get('is_admin') == True:
+        parcels = ParcelOrder.query.all()
+        result = ParcelOrderSchema().dump(parcels, many= True)
+        return jsonify(
+            result
+        ), 200
+    return jsonify({"message": "You are not authorized to access this"}), 401
 
 @user_bp.get('/parcel_orders')
 @jwt_required()
@@ -139,16 +176,9 @@ def get_parcel_orders():
     if user:
         parcel_orders = ParcelOrder.query.filter_by(user_id=user.id).all()
 
-        serialized_parcel_orders = [
-            {
-                'name_of_parcel': parcel.name_of_parcel,
-                'pickup_location': parcel.pickup_location,
-                'destination': parcel.destination,
-            }
-            for parcel in parcel_orders
-        ]
+        result = ParcelOrderSchema().dump(parcel_orders, many=True)
 
-        return jsonify({"parcel_orders": serialized_parcel_orders}), 200
+        return jsonify(result), 200
     else:
         return jsonify({"message": "User not found"}), 404
     
@@ -171,20 +201,27 @@ def create_parcel_order():
             latitude_pick_up_location=data.get('latitude_pick_up_location'),
             longitude_pick_up_location=data.get('longitude_pick_up_location'),
             latitude_destination=data.get('latitude_destination'),
-            longitude_destination=data.get('llongitude_destination'),
+            longitude_destination=data.get('longitude_destination'),
             image_of_parcel=data.get('image_of_parcel'),
             receivers_name=data.get('receivers_name'),
+            receivers_phone=data.get('receivers_phone'),
             weight_of_parcel=data.get('weight_of_parcel'),
             user_id=user.id  
         )
 
         db.session.add(new_parcel_order)
         db.session.commit()
+        new_tracker = Tracker(
+            parcel_id=new_parcel_order.id,
+            status="Preparing"  
+        )
 
+        db.session.add(new_tracker)
+        db.session.commit()
         parcel_order_schema = ParcelOrderSchema()
-        serialized_parcel_order = parcel_order_schema.dump(new_parcel_order)
+        result = parcel_order_schema.dump(new_parcel_order)
 
-        return jsonify(serialized_parcel_order), 201
+        return jsonify(result), 201
     else:
         return jsonify({"message": "User not found"}), 404
     
@@ -203,8 +240,8 @@ def edit_parcel(parcel_order_id):
             db.session.commit()
 
             parcel_order_schema = ParcelOrderSchema()
-            serialize_parcel_order = parcel_order_schema.dump(parcel_order)
-            return jsonify({"message": "Parcel_order edited succassfully","parcel_order":serialize_parcel_order}), 200
+            result = parcel_order_schema.dump(parcel_order)
+            return jsonify(result), 200
         else:
             return jsonify({"message": "Parcel order not found"}), 404
 
@@ -247,6 +284,26 @@ def get_parcel_order_details(parcel_order_id):
     else:
         return jsonify({"message":"User not found"}), 404
 
+@user_bp.get('/parcel_status/<int:parcel_order_id>')
+@jwt_required()
+def get_parcel_order_status(parcel_order_id):
+    current_username = get_jwt_identity()
+    user = User.get_user_by_username(username= current_username)
+
+    if user:
+        parcel_order = ParcelOrder.query.get(parcel_order_id)
+        status = Tracker.query.filter_by(parcel_id=parcel_order.id).first()
+
+        if status:
+            tracker_schems = TrackerSchema()
+            result = tracker_schems.dump(status)
+            return jsonify(result),200
+
+        else:
+          return jsonify({"message": "Status not found"})
+    else:
+        return jsonify({"message":"User not found"}), 404
+
 #endpoint
 app.register_blueprint(user_bp, url_prefix='/users')
 
@@ -272,7 +329,7 @@ def update_parcel_order(parcel_order_id):
 
                     tracker_schema = TrackerSchema()
                     serialized_tracker = tracker_schema.dump(tracker)
-                    return jsonify({"message": "Parcel order updated successfully", "tracker": serialized_tracker}), 200
+                    return jsonify(serialized_tracker), 200
             else:
                 return jsonify({"message": "Tracker not found for the parcel order"}), 404
         else:
