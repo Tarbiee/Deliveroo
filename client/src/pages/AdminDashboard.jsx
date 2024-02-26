@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 
 
 function AdminDashboard({accessToken}) {
-
+   
 
   useEffect(() => {
     fetch("https://deliveroo-2.onrender.com/auth/whoami",{
       headers:{Authorization: `Bearer ${accessToken}`}
     })
     .then(res => res.json())
-    .then((data) => console.log(data))
+    .then((data) => console.log("whoami",data))
   },[accessToken])
 
   

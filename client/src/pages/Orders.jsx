@@ -80,7 +80,7 @@ function Orders({accessToken}) {
         <div style={{paddingTop:'50px'}}>
         <h1 className="text-2xl font-black text-gray-800">Hello there!</h1>
       <p className="mb-6 text-gray-600">Here's are your orders.</p>
-      <div style={{marginLft:'50px', marginRight:'50px'}}>
+      <div style={{marginLeft:'50px', marginRight:'50px'}}>
         {parcelOrders.length > 0 ? (
             <Table responsive>
             <thead>
