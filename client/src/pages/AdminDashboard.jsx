@@ -12,8 +12,16 @@ function AdminDashboard({accessToken}) {
     fetch("https://deliveroo-2.onrender.com/auth/whoami",{
       headers:{Authorization: `Bearer ${accessToken}`}
     })
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
     .then((data) => console.log("whoami",data))
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
   },[accessToken])
 
   

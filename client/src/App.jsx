@@ -13,9 +13,10 @@ import Orders from './pages/Orders';
 import Allorders from './pages/Allorders';
 import EditParcel from './pages/EditParcel';
 import './App.css';
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 function App() {
-  const [accessToken, setAccessToken] = useState()
+  const [accessToken, setAccessToken] = useState("")
 
   useEffect(() =>{
     const storedAccessToken = localStorage.getItem("accessToken");
@@ -32,12 +33,14 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="/dashboard" element={<UserDashboard accessToken={accessToken} />} />
-        <Route path="/admin" element={<AdminDashboard/>}   /> 
-        <Route path="/order/:id" element={<OrderDetails accessToken={accessToken}/>} />
-        <Route path="/parcel_orders" element={<Orders accessToken={accessToken}/>} />
-        <Route path="/all_orders" element={<Allorders accessToken={accessToken}/>} />
-        <Route path="/edit_parcel/:id" element={<EditParcel accessToken={accessToken}/>} />
+        {/* protected */}
+        <Route path="/dashboard" element={<ProtectedRoute accessToken={accessToken}><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/order/:id" element={<ProtectedRoute accessToken={accessToken}><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><Orders  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/all_orders" element={<ProtectedRoute accessToken={accessToken}><Allorders  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/edit_parcel/:id" element={<ProtectedRoute accessToken={accessToken}><EditParcel  accessToken={accessToken}/></ProtectedRoute>} />
+   
  
       </Routes>
    
