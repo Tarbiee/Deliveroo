@@ -14,7 +14,7 @@ export default function EditParcel({ accessToken }) {
   const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5555/users/parcel_order/${id}`, {
+    fetch(`https://deliveroo-2.onrender.com/users/parcel_order/${id}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
       .then((r) => r.json())
@@ -23,7 +23,7 @@ export default function EditParcel({ accessToken }) {
 
   const handleEdit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5555/users/edit_parcel/${id}`, {
+    fetch(`https://deliveroo-2.onrender.com/users/edit_parcel/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function EditParcel({ accessToken }) {
   const fetchStatus = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5555/users/parcel_status/${id}`,
+        `https://deliveroo-2.onrender.com/users/parcel_status/${id}`,
         {
           method: "GET",
           headers: {
