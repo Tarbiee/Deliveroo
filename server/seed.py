@@ -24,7 +24,8 @@ with app.app_context():
         {"id": 8, "username": "Egan Girt", "email": "egirt7@bloomberg.com", "password": generate_password_hash("egan123")}, 
         {"id": 9, "username": "Monique Waith", "email": "mwaith8@hexun.com", "password": generate_password_hash("monique123")}, 
         {"id": 10, "username": "Sherry Stanbury", "email": "sstanbury9@shareasale.com", "password": generate_password_hash("sherry123")}, 
-       
+        
+               
     ]
     print("Seeding users data")
 
