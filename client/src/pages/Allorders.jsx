@@ -50,7 +50,7 @@ function Allorders({accessToken}) {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5555/users/all_parcel_orders",{
+    fetch("https://deliveroo-2.onrender.com/users/all_parcel_orders",{
       headers:{Authorization: `Bearer ${accessToken}`}
     })
     .then(res => res.json())

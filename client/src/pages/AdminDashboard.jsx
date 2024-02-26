@@ -6,7 +6,15 @@ import { Link } from "react-router-dom";
 
 
 function AdminDashboard({accessToken}) {
-  const [parcelOrders, setParcelOrders] = useState([])
+
+
+  useEffect(() => {
+    fetch("https://deliveroo-2.onrender.com/auth/whoami",{
+      headers:{Authorization: `Bearer ${accessToken}`}
+    })
+    .then(res => res.json())
+    .then((data) => console.log(data))
+  },[accessToken])
 
   
   return (
