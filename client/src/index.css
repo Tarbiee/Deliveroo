@@ -31,6 +31,15 @@
     height: 100%;
     width: 50%;
   }
+
+  @media only screen and (max-width: 600px) {
+    .login-container{ 
+      width: 400px;
+      height: 300px;
+            
+      
+    }
+  }
   .login-form h2 {
     margin: 0; /* Reset margin */
     padding: 0; /* Reset padding */

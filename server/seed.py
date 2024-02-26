@@ -14,7 +14,7 @@ with app.app_context():
     # Generate sample users
 
     users_data = [
-        {"id": 1, "username": "John Doe", "email": "cbraghini0@elpais.com", "password": generate_password_hash("john123")}, 
+        {"id": 11, "username": "John Doe", "email": "cbraghini0@elpais.com", "password": generate_password_hash("john123")}, 
         {"id": 2, "username": "Stephanie Mechan", "email": "smechan1@cocolog-nifty.com", "password": generate_password_hash("steph123")}, 
         {"id": 3, "username": "Stanleigh Amsberger", "email": "samsberger2@deviantart.com", "password": generate_password_hash("stanleigh123")}, 
         {"id": 4, "username": "Benito Moors", "email": "bmoors3@npr.org", "password": generate_password_hash("benito123")}, 
@@ -45,9 +45,11 @@ with app.app_context():
                 longitude_pick_up_location=fake.longitude(),
                 latitude_destination=fake.latitude(),
                 longitude_destination=fake.longitude(),
+                receivers_phone=fake.phone_number(),
                 image_of_parcel=fake.image_url(),
                 receivers_name=fake.name(),
                 weight_of_parcel=random.randint(1, 10),
+            
                 user=user
             )
             db.session.add(parcel_order)

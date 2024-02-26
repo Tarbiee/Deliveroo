@@ -61,8 +61,9 @@ class ParcelOrder(db.Model):
     longitude_destination= db.Column(db.Float)
     image_of_parcel = db.Column(db.String)
     receivers_name = db.Column(db.String(50))
+    receivers_phone = db.Column(db.String(50))
     weight_of_parcel = db.Column(db.Integer)
-    created_at = db.Column (db.DateTime, default = datetime.utcnow),
+    created_at = db.Column (db.DateTime, default = datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     tracker = db.relationship('Tracker',uselist=False, backref='parcel_order')
 
