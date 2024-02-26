@@ -25,7 +25,7 @@ function OrderDetails({ accessToken }) {
   const fetchStatus = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5555/users/parcel_status/${id}`,
+        `https://deliveroo-2.onrender.com/users/parcel_status/${id}`,
         {
           method: "GET",
           headers: {
@@ -56,7 +56,7 @@ function OrderDetails({ accessToken }) {
   const orderDetail = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5555/users/parcel_order/${id}`,
+        `https://deliveroo-2.onrender.com/users/parcel_order/${id}`,
         {
           method: "GET",
           headers: {

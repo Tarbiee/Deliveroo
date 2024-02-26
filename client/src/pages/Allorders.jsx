@@ -14,7 +14,7 @@ function Allorders({accessToken}) {
   const [parcelOrders, setParcelOrders] = useState([])
 
   function handleStatusChange(parcelOrderId, newStatus) {
-    fetch(`http://localhost:5555/admin/parcel_order/${parcelOrderId}`, {
+    fetch(`https://deliveroo-2.onrender.com/admin/parcel_order/${parcelOrderId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

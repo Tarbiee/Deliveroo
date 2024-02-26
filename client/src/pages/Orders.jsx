@@ -15,7 +15,7 @@ function Orders({accessToken}) {
   const [status, setStatus] = useState('')
 
   useEffect(() => {
-    fetch("http://localhost:5555/users/parcel_orders",{
+    fetch("https://deliveroo-2.onrender.com/users/parcel_orders",{
       headers:{Authorization: `Bearer ${accessToken}`}
     })
     .then(res => res.json())

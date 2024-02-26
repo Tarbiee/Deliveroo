@@ -28,7 +28,7 @@ export default function Register() {
                 setSubmitting(false);
                 return;
             }
-            const response = await axios.post('http://localhost:5555/auth/register', values);
+            const response = await axios.post('https://deliveroo-2.onrender.com/auth/register', values);
             alert('User registered successfully:', response.data);
             setUsername("");
             setEmail("");
