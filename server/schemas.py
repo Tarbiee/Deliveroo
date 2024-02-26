@@ -16,7 +16,9 @@ class ParcelOrderSchema(Schema):
     longitude_destination= fields.Float(required=True)
     image_of_parcel = fields.String(required=True)
     receivers_name = fields.String(required=True, validate=validate.Length(max=50))
+    receivers_phone = fields.String(required=True, validate=validate.Length(max=50))
     weight_of_parcel = fields.Integer(required=True)
+    created_at = fields.DateTime(dump_only=True)
 
     user_id = fields.Integer(dump_only=True)
 

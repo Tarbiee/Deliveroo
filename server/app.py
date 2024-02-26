@@ -201,16 +201,23 @@ def create_parcel_order():
             latitude_pick_up_location=data.get('latitude_pick_up_location'),
             longitude_pick_up_location=data.get('longitude_pick_up_location'),
             latitude_destination=data.get('latitude_destination'),
-            longitude_destination=data.get('llongitude_destination'),
+            longitude_destination=data.get('longitude_destination'),
             image_of_parcel=data.get('image_of_parcel'),
             receivers_name=data.get('receivers_name'),
+            receivers_phone=data.get('receivers_phone'),
             weight_of_parcel=data.get('weight_of_parcel'),
             user_id=user.id  
         )
 
         db.session.add(new_parcel_order)
         db.session.commit()
+        new_tracker = Tracker(
+            parcel_id=new_parcel_order.id,
+            status="Preparing"  
+        )
 
+        db.session.add(new_tracker)
+        db.session.commit()
         parcel_order_schema = ParcelOrderSchema()
         result = parcel_order_schema.dump(new_parcel_order)
 
