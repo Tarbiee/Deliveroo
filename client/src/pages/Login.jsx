@@ -26,7 +26,7 @@ export default function Login() {
   const handleSubmit = async () => {
     console.log('clicked')
     try {
-      const response = await axios.post("http://localhost:5555/auth/login", {
+      const response = await axios.post("https://deliveroo-2.onrender.com/auth/login", {
         username,
         password,
       });

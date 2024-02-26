@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
-  const [openNavbar, setOpenNavbar] = useState(false);
+  const [openNavbar, setOpenNavbar] = useState(true);
   const [svg, setSvg] = useState("backdrop-blur-md bg-white/10");
   const [textColor, setTextColor] = useState("text-black");
   const [mobileBg, setMobileBg] = useState("bg-white/80");
@@ -38,7 +38,7 @@ const Navbar = () => {
         <div className="flex items-center min-w-max relative">
           <NavLink to="/" className="font-semibold flex items-center gap-x-2">
             <span className="">
-              <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
+              <span className="mr-1 text-white inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
                 D
               </span>
               <span className="text-xl">eliveroo</span>
