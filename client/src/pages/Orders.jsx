@@ -24,13 +24,13 @@ function Orders({accessToken}) {
 
   const handleDelete =  (id) => {  
   
-    fetch(`http://localhost:5555/users/delete_parcel/${id}`,{
+    fetch(`https://deliveroo-2.onrender.com/users/delete_parcel/${id}`,{
       method:'DELETE',
       headers: { Authorization: `Bearer ${accessToken}` }
     })
     .then(response => {
       if (response.ok){
-        toast.success(`$👍 Parcel Order canceled succesfully !`);
+        toast.success(`👍 Parcel Order canceled succesfully !`);
         setParcelOrders(parcelOrders.filter(order => order.id !== id));
 
 

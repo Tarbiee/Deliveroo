@@ -24,6 +24,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
+    console.log('clicked')
     try {
       const response = await axios.post("https://deliveroo-2.onrender.com/auth/login", {
         username,
