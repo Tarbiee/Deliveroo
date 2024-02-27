@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../utils/Auth";
 
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +26,7 @@ export default function Login() {
       );
 
       const { access, refresh } = response.data.tokens;
-      localStorage.setItem("accessToken", access);
+      login(access);
       setPassword("");
       setUsername("");
       toast.success(" 👤 User logged in successfuly!");

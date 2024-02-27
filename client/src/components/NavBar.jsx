@@ -1,13 +1,42 @@
 import { useState, useEffect } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {  useAuth } from '../utils/Auth'
 
-const Navbar = () => {
+
+
+
+const Navbar = ({accessToken}) => {
   const [openNavbar, setOpenNavbar] = useState(true);
   const [svg, setSvg] = useState("backdrop-blur-md bg-white/10");
   const [textColor, setTextColor] = useState("text-black");
   const [mobileBg, setMobileBg] = useState("bg-white/80");
 
+  const { logout, isAuthenticated } = useAuth()
 
+  const navigate = useNavigate();
+
+
+  const handleLogout = async () => {
+    const response = await fetch('https://deliveroo-2.onrender.com/auth/logout', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    });
+  
+    if (response.ok) {
+      logout()      
+      navigate('/login');
+      toast.success('👋 Logged out successfully!');
+
+    } else {
+      
+      console.error('Logout failed');
+    }
+  }
   
 
   useEffect(() => {
@@ -78,12 +107,28 @@ const Navbar = () => {
           <div onClick={() => {
               toggleNavbar();
             }} className="flex flex-col sm:flex-row sm:items-center gap-4  lg:min-w-max mt-10 lg:mt-0">
-            <NavLink
-              to="/contact"
+           {isAuthenticated ? ( <button
+              onClick={handleLogout}
               className="px-6 py-3 duration-300 ease-linear flex justify-center w-full sm:w-auto border bg-blue-400/20 border-blue-600 text-white bg-blue-700 rounded-xl"
             >
               Log Out
-            </NavLink>
+            </button>) : (
+             <div className=" flex flex-row space-x-5"><button
+             onClick={()=>navigate('/login')}
+             className="px-6 py-3 duration-300 ease-linear flex justify-center w-full sm:w-auto border bg-blue-400/20 border-blue-600 text-white bg-blue-700 rounded-xl"
+           >
+             Log In
+           </button>
+           <button
+             onClick={() => navigate('/register')}
+             className="px-6 py-3 duration-300 ease-linear flex justify-center w-full sm:w-auto border bg-blue-400/10 border-blue-600   text-blue-700 rounded-xl"
+           >
+              Sign Up
+           </button>
+           
+           </div>
+            )
+              }
             
           </div>
         </div>

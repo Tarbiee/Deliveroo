@@ -47,17 +47,7 @@ function AdminDashboard({accessToken}) {
     })
     .then(response => {
       if (response.ok) {
-        toast.success(`$👍 Status changed to ${newStatus} !`, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          className: 'blue-toast',
-        });
+        toast.success(`$👍 Status changed to ${newStatus} `);
         const updatedOrders = parcelOrders.map(order => {
           if (order.id === parcelOrderId) {
             return { ...order, status: newStatus };
@@ -279,7 +269,7 @@ function AdminDashboard({accessToken}) {
         </tr>
       </thead>
       <tbody>
-      {parcelOrders.map((parcelOrder) => (
+      { parcelOrders > 0 ? parcelOrders.map((parcelOrder) => (
                 <tr key={parcelOrder.id}>
                   <td>{parcelOrder.id}</td>
                   <td>{parcelOrder.name_of_parcel}</td>
@@ -301,7 +291,7 @@ function AdminDashboard({accessToken}) {
                 </td>
 
                 </tr>
-              ))}
+              )) : <p>No orders available</p>}
       </tbody>
     </Table>
 

@@ -1,15 +1,19 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import {  useAuth } from '../utils/Auth'
 
 
-function Hero() {
+
+function Hero({accessToken}) {
+
+  const { isAuthenticated } = useAuth()
+
 
   const navigate = useNavigate();
   return (
     <div
 
-  className="bg-blue-400/20"
-  
+  className="bg-blue-400/20"  
  
     >
       
@@ -33,9 +37,11 @@ function Hero() {
               We deliver your products with care and speed. We are a trusted
             </p>
 
-            <button onClick={() => navigate('/login')} className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+            {isAuthenticated ? (<button onClick={() => navigate('/dashboard')} className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+              Dashboard
+            </button>) : (<button onClick={() => navigate('/login')} className="w-full px-5 py-2 mt-6 text-sm tracking-wider text-white uppercase transition-colors duration-300 transform bg-blue-600 rounded-lg lg:w-auto hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
               Get Started
-            </button>
+            </button>)}            
           </div>
         </div>
 

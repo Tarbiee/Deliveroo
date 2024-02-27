@@ -5,6 +5,7 @@ import { IoCreateSharp } from "react-icons/io5";
 import Orders from "./Orders";
 import CreateOrder from "./CreateOrder";
 import { useNavigate } from "react-router-dom";
+import ProtectedRoute from "../utils/ProtectedRoute";
 function UserDashboard({accessToken}) {
 
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ function UserDashboard({accessToken}) {
             <ul className="mt-8 space-y-3 md:mt-20">
               <li className="relative">
                 <Link
-                  to="/orders"
+                  to="/parcel_orders"
                   className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none"
                 >
                   <button className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none">
@@ -110,9 +111,9 @@ function UserDashboard({accessToken}) {
               className="h-[calc(100vh-10rem)] overflow-auto px-4 py-10"
             >
               {/* <Routes>
-                <Route path="/orders" element={<Orders />} />
-                <Route path="/create-order" element={<CreateOrder />} />
+              <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><Orders  accessToken={accessToken} /></ProtectedRoute>} />
               </Routes> */}
+
              
               <CreateOrder accessToken={accessToken} />
             </main>

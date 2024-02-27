@@ -1,7 +1,7 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useLocation} from 'react-router-dom'
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home'
@@ -18,22 +18,25 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 function App() {
   const [accessToken, setAccessToken] = useState("")
 
+  const location = useLocation()
   useEffect(() =>{
     const storedAccessToken = localStorage.getItem("accessToken");
     setAccessToken(storedAccessToken)
-  }, [accessToken]);
+  }, [location.key, accessToken]);
+
   
+
   
   console.log("This is:", accessToken)
   return (
     <div  className="App">
       <ToastContainer />
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/' element={<Home accessToken={accessToken}/>}/>
         <Route path='/register' element={<Register/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<ContactUs />} />
-        {/* protected */}
+        {/* protected routes */}
         <Route path="/dashboard" element={<ProtectedRoute accessToken={accessToken}><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard /></ProtectedRoute>} />
         <Route path="/order/:id" element={<ProtectedRoute accessToken={accessToken}><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />

@@ -5,12 +5,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export default function Register() {
     const navigate = useNavigate()
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword]= useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+
 
     const handleSignup = async (event) => {
       console.log('clicked')
