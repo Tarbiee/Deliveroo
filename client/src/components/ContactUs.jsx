@@ -42,7 +42,7 @@ function ContactUs() {
             </div>
 
             <div className="flex-1 px-2 mt-4 md:mt-0">
-              <label className="block mb-2 text-sm text-gray-600 dark:text-gray-200">
+              <label className="block mb-2 text-sm text-gray-600 ">
                 Email address
               </label>
               <input
@@ -56,7 +56,7 @@ function ContactUs() {
           <div className="w-full mt-4">
             <label className="block mb-2 text-sm text-gray-600 ">Message</label>
             <textarea
-              className="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-56  focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full h-32 px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md md:h-56  focus:border-blue-400  focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
               placeholder="Message"
             ></textarea>
           </div>
