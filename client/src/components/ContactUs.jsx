@@ -2,10 +2,14 @@ import React from "react";
 
 function ContactUs() {
   return (
-    <section className="min-h-screen bg-blue-300/10  lg:flex mt-10">
+    <section style={{backgroundImage: "url('/Background.png')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }} >
+    <div className="min-h-screen bg-blue-300/10  lg:flex mt-10">
       <div className="flex flex-col justify-center w-full p-8 lg:bg-blue-300/10  lg:px-12 xl:px-32 lg:w-1/2">
       <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-          <img className="w-[400px] h-[400px] lg:max-w-3xl" src="contact.png" alt="" />
+          <img className="lg:w-[400px] lg:h-[400px] lg:max-w-3xl" src="contact.png" alt="" />
         </div>
         <h1 className="text-2xl font-semibold text-blue-400 capitalize lg:text-3xl">
           REQUEST A CALLBACK
@@ -23,7 +27,7 @@ function ContactUs() {
         </div>
       </div>
 
-      <div className="flex flex-col justify-center w-full p-8 pt-0 lg:w-1/2 lg:px-12 xl:px-24 ">
+      <div className="flex flex-col justify-center w-full p-8 pt-0 lg:w-1/2 lg:px-12 xl:px-24 bg-gray-100 ">
         <form>
           <div className="-mx-2 md:items-center md:flex">
             <div className="flex-1 px-2">
@@ -61,6 +65,7 @@ function ContactUs() {
             get in touch
           </button>
         </form>
+      </div>
       </div>
     </section>
   );

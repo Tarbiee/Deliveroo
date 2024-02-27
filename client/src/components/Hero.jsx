@@ -14,10 +14,10 @@ function Hero() {
     >
       
     <div 
-    style={{backgroundImage: "url('/floats.png')",
+   style={{backgroundImage: "url('/floats.png')",
     backgroundSize: "cover",
     backgroundPosition: "center",
-  }}
+  }} 
     
      className="container px-6 py-16 mx-auto h-[600px]">
       <div className="items-center lg:flex  lg:mt-30 ">
