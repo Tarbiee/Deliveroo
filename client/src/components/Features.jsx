@@ -12,7 +12,7 @@ function Features() {
  
     >
     <div className=" flex flex-wrap items-center justify-center ">
-      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-md">
+      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-lg">
         <div className="mb-4 w-20 rounded-md bg-blue-100 px-2 py-1 text-sm mx-auto font-medium text-blue-700">
           Feature
         </div>
@@ -52,7 +52,7 @@ area in a short time.
         </button>
       </div>
 
-      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-md">
+      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-lg">
         <div className="mb-4 w-20 rounded-md mx-auto bg-blue-100 px-2 py-1 text-sm font-medium text-blue-700">
           Feature
         </div>
@@ -92,7 +92,7 @@ area in a short time.
         </button>
       </div>
 
-      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-md">
+      <div className="mx-auto my-10 max-w-xs rounded-xl px-6 py-10 text-gray-600 bg-white shadow-lg">
         <div className="mb-4 w-20 mx-auto rounded-md bg-blue-100 px-2 py-1 text-sm font-medium text-blue-700">
           Feature
         </div>
