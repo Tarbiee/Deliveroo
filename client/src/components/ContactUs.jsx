@@ -11,16 +11,16 @@ function ContactUs() {
       <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
           <img className="lg:w-[400px] lg:h-[400px] lg:max-w-3xl" src="contact.png" alt="" />
         </div>
-        <h1 className="text-2xl font-semibold text-blue-400 capitalize lg:text-3xl">
+        <h1 className="text-xl font-semibold text-blue-500 capitalize lg:text-3xl">
           REQUEST A CALLBACK
         </h1>
 
-        <p className="mt-4 text-black text-3xl  font-bold">
+        <p className="mt-4 text:xl text-black lg:text-3xl  font-bold">
           We will contact in the <br/> shortest time.
         </p>
 
         <div className="mt-1 md:mt-8">
-          <h3 className="font-medium text-2xl text-gray-600/60  ">
+          <h3 className="font-medium text-lg lg:text-2xl text-slate-600/80  ">
           Monday to Friday, 9am-5pm.          </h3>
 
         
