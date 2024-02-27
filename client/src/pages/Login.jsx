@@ -26,16 +26,7 @@ export default function Login() {
       localStorage.setItem("accessToken", access);
       setPassword("");
       setUsername("");
-      toast.success(" 👤 User logged in successfuly!", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success(" 👤 User logged in successfuly!");
       if (username === "Stephanie Mechan") {
         navigate("/admin");
       } else {
@@ -44,17 +35,7 @@ export default function Login() {
     } catch (error) {
       console.error("Error logging in:", error);
       toast.error(
-        "⛔ Error logging in. Please check your credentials and try again.!",
-        {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        }
+        "⛔ Error logging in. Please check your credentials and try again.!"       
       );
     }
   };
