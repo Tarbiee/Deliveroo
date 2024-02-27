@@ -4,7 +4,11 @@ import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
 import Orders from "./Orders";
 import CreateOrder from "./CreateOrder";
+import { useNavigate } from "react-router-dom";
 function UserDashboard({accessToken}) {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="bg-slate-200 flex h-screen">
@@ -32,9 +36,9 @@ function UserDashboard({accessToken}) {
           </label>
           <nav
             aria-label="Sidebar Navigation"
-            className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-hidden bg-gray-700 text-white transition-all md:h-screen md:w-64 lg:w-72"
+            className="peer-checked:w-64 left-0 z-10 flex h-screen w-0 flex-col overflow-hidden bg-blue-700 text-white transition-all md:h-screen md:w-64 lg:w-72"
           >
-            <div className="bg-slate-800 mt-5 py-4 pl-10 md:mt-10">
+            <div onClick={ () => navigate('/')} className="bg-blue-800 mt-5 py-4 pl-10 md:mt-10 cursor-pointer">
               <span className="">
                 <span className="mr-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
                   D
@@ -46,9 +50,9 @@ function UserDashboard({accessToken}) {
               <li className="relative">
                 <Link
                   to="/orders"
-                  className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
+                  className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none"
                 >
-                  <button className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                  <button className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none">
                     <span>
                       <CiBoxList className=" text-3xl" />
                     </span>
@@ -59,9 +63,9 @@ function UserDashboard({accessToken}) {
               <li className="relative">
                 <Link
                   to="/create-order"
-                  className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none"
+                  className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none"
                 >
-                  <button className="focus:bg-slate-600 hover:bg-slate-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-300 focus:outline-none">
+                  <button className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none">
                     <span>
                       <IoCreateSharp className=" text-3xl" />
                     </span>

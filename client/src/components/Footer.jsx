@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 
 function Footer() {
   return (
@@ -8,9 +9,16 @@ function Footer() {
         <div className="lg:flex">
           <div className="w-full -mx-6 lg:w-2/5">
             <div className="px-6">
-              <h1 className=" text-blue-500 font-medium">
-                <img className="w-auto h-7" src="" alt="logo" />Deliveroo
-              </h1>
+            <div className="flex items-center min-w-max relative">
+          <NavLink to="/" className="font-semibold flex items-center gap-x-2">
+            <span className="">
+              <span className="mr-1 text-white inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 align-bottom text-2xl font-bold">
+                D
+              </span>
+              <span className="text-xl">eliveroo</span>
+            </span>
+          </NavLink>
+        </div>
 
               <p className="max-w-sm mt-2 text-gray-900 ">
                 The most trusted Courier company in your area.

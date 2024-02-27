@@ -21,7 +21,7 @@ function App() {
   useEffect(() =>{
     const storedAccessToken = localStorage.getItem("accessToken");
     setAccessToken(storedAccessToken)
-  }, []);
+  }, [accessToken]);
   
   
   console.log("This is:", accessToken)
@@ -29,16 +29,15 @@ function App() {
     <div  className="App">
       <ToastContainer />
       <Routes>
-        <Route path='/' element={<Login />}/>
+        <Route path='/' element={<Home/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<ContactUs />} />
         {/* protected */}
         <Route path="/dashboard" element={<ProtectedRoute accessToken={accessToken}><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
         <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard /></ProtectedRoute>} />
         <Route path="/order/:id" element={<ProtectedRoute accessToken={accessToken}><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />
         <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><Orders  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/all_orders" element={<ProtectedRoute accessToken={accessToken}><Allorders  accessToken={accessToken} /></ProtectedRoute>} />
         <Route path="/edit_parcel/:id" element={<ProtectedRoute accessToken={accessToken}><EditParcel  accessToken={accessToken}/></ProtectedRoute>} />
    
  
