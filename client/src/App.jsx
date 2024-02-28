@@ -37,12 +37,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<ContactUs />} />
         {/* protected routes */}
-        <Route path="/dashboard" element={<ProtectedRoute accessToken={accessToken}><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard accessToken={accessToken}/></ProtectedRoute>} />
-        <Route path="/order/:id" element={<ProtectedRoute accessToken={accessToken}><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><UserOrders  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/edit_parcel/:id" element={<ProtectedRoute accessToken={accessToken}><EditParcel  accessToken={accessToken}/></ProtectedRoute>} />
-        <Route path="/all_orders" element={<ProtectedRoute accessToken={accessToken}><Allorders  accessToken={accessToken}/></ProtectedRoute>} /> 
+        <Route path="/dashboard" element={<ProtectedRoute ><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute ><AdminDashboard accessToken={accessToken}/></ProtectedRoute>} />
+        <Route path="/order/:id" element={<ProtectedRoute ><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/parcel_orders" element={<ProtectedRoute ><UserOrders  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/edit_parcel/:id" element={<ProtectedRoute ><EditParcel  accessToken={accessToken}/></ProtectedRoute>} />
+        <Route path="/all_orders" element={<ProtectedRoute ><Allorders  accessToken={accessToken}/></ProtectedRoute>} /> 
  
       </Routes>
    
