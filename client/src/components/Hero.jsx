@@ -12,8 +12,7 @@ function Hero({accessToken}) {
   const navigate = useNavigate();
   return (
     <div
-
-  className="bg-blue-400/20"  
+  className="bg-blue-400/20" 
  
     >
       

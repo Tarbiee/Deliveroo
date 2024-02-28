@@ -21,7 +21,7 @@ is our first priority</p>
                     loop={true}                    
                     autoPlay
                     muted
-                    className=' w-3/4  h-30 mt-5 lg:mt-0 '
+                    className=' lg:w-3/4 w-full h-30 mt-5 lg:mt-0 '
                 />
     </div>
     </div>

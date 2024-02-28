@@ -2,12 +2,8 @@ import React,{useEffect, useState} from 'react'
 import { Button, Table } from 'react-bootstrap';
 import { faPen, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import NavBar from "../components/NavBar"
-import Hero from '../components/Hero';
 import {Link} from 'react-router-dom';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import OrderDetails from './OrderDetails';
 
 
 function Orders({accessToken}) {

@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from 'react-router-dom';
 import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import {  useAuth } from '../utils/Auth'
 
 
 
 
 const Navbar = ({accessToken}) => {
-  const [openNavbar, setOpenNavbar] = useState(true);
+  const [openNavbar, setOpenNavbar] = useState(false);
   const [svg, setSvg] = useState("backdrop-blur-md bg-white/10");
   const [textColor, setTextColor] = useState("text-black");
   const [mobileBg, setMobileBg] = useState("bg-white/80");

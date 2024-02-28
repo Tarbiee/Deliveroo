@@ -3,7 +3,6 @@ import user from "../images/login1.png";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../utils/Auth";
 
 export default function Login() {
@@ -48,7 +47,7 @@ export default function Login() {
  
     <div className=" mt-40 flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl">
       <div
-        className="hidden bg-cover lg:block lg:w-1/2"
+        className="hidden bg-cover lg:block  lg:w-1/2"
         style={{
           backgroundImage: `url(${user})`,
         }}

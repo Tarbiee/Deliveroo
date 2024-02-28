@@ -1,9 +1,8 @@
 import "./UserDashboard.css";
 import { useEffect, useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
-import Orders from "./Orders";
 import CreateOrder from "./CreateOrder";
 import { useNavigate } from "react-router-dom";
 import {  useAuth } from '../utils/Auth'

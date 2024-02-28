@@ -3,7 +3,6 @@ import user from "../images/login1.png"
 import {  useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function Register() {
@@ -34,10 +33,7 @@ export default function Register() {
     }
   
       try {
-          if (password !== confirmPassword) {
-              alert("Passwords do not match");
-              return;
-          }
+          
           const response = await axios.post('https://deliveroo-2.onrender.com/auth/register', { username, email, password });
           toast.success('User registered successfully:', response.data);
           setUsername("");

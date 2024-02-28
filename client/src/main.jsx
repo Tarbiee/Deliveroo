@@ -7,10 +7,12 @@ import { ToastContainer } from 'react-toastify';
 import {AuthProvider} from './utils/Auth'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <HashRouter>
+  <React.StrictMode>
+    <HashRouter>
     <AuthProvider>
     <App />
     </AuthProvider>
     <ToastContainer />
   </HashRouter>,
+  </React.StrictMode>,
 )
