@@ -1,34 +1,17 @@
 import "./UserDashboard.css";
-import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
 import Orders from "./Orders";
-import CreateOrder from "./CreateOrder";
 import { useNavigate } from "react-router-dom";
 import {  useAuth } from '../utils/Auth'
 import { toast } from "react-toastify";
-function UserDashboard({accessToken}) {
 
-  const [userDetails, setUserDetails] = useState([])
+
+function UserOrders({accessToken}) {
+
   const navigate = useNavigate();
   const { logout } = useAuth()
-
-  useEffect(() => {
-    fetch("https://deliveroo-2.onrender.com/auth/whoami",{
-      headers:{Authorization: `Bearer ${accessToken}`}
-    })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return res.json();
-    })
-    .then((data) => setUserDetails(data))
-    .catch((error) => {
-      console.error('There has been a problem with your fetch operation:', error);
-    });
-  },[accessToken])
 
   const handleLogout = async () => {
     const response = await fetch('https://deliveroo-2.onrender.com/auth/logout', {
@@ -49,6 +32,7 @@ function UserDashboard({accessToken}) {
       console.error('Logout failed');
     }
   }
+
 
 
   return (
@@ -103,8 +87,8 @@ function UserDashboard({accessToken}) {
                 </Link>
               </li>
               <li className="relative">
-                <button
-                 
+                <Link
+                  to="/dashboard"
                   className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none"
                 >
                   <button className="focus:bg-blue-600 hover:bg-blue-600 flex w-full space-x-2 rounded-md px-10 py-4 text-gray-100 focus:outline-none">
@@ -113,15 +97,15 @@ function UserDashboard({accessToken}) {
                     </span>
                     <span className="">Create Order</span>
                   </button>
-                </button>
+                </Link>
               </li>
             </ul>
 
             <div className="my-6 mt-auto ml-10 flex cursor-pointer">
               <div></div>
               <div className="ml-3">
-                <p className="font-medium">{userDetails.username}</p>
-                <p className="text-sm text-gray-300">{userDetails.email}</p>
+                <p className="font-medium">Rick Flair</p>
+                <p className="text-sm text-gray-300">rick@gmai.com</p>
               </div>
             </div>
           </nav>
@@ -131,11 +115,11 @@ function UserDashboard({accessToken}) {
           {/* Navbar */}
           <header className="relative flex flex-col items-center bg-white px-4 py-4 shadow sm:flex-row md:h-20">
             <div className="flex w-full flex-col justify-between overflow-hidden transition-all sm:max-h-full sm:flex-row sm:items-center">
-              <p className=" text-blue-700 font-bold text-2xl">User Dashboard</p>
+            <p className=" text-blue-700 font-bold text-2xl">User Dashboard</p>
+
               <div className="relative ml-10 flex items-center justify-between rounded-md sm:ml-auto">
                
                 <span className={`lg:text-2xl font-ubuntu border-b-2 border-blue-600/40` }>
-             
             </span>
               </div>
 
@@ -160,7 +144,7 @@ function UserDashboard({accessToken}) {
               </Routes> */}
 
              
-              <CreateOrder accessToken={accessToken} />
+              <Orders accessToken={accessToken} />
             </main>
           </div>
           {/* /Main */}
@@ -170,4 +154,4 @@ function UserDashboard({accessToken}) {
   );
 }
 
-export default UserDashboard;
+export default UserOrders;

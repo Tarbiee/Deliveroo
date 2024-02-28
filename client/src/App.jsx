@@ -9,7 +9,7 @@ import ContactUs from './components/ContactUs'
 import UserDashboard from './pages/UserDashboard'
 import AdminDashboard from './pages/AdminDashboard'
 import OrderDetails from './pages/OrderDetails'
-import Orders from './pages/Orders';
+import UserOrders from './pages/UserOrders';
 import Allorders from './pages/Allorders';
 import EditParcel from './pages/EditParcel';
 import './App.css';
@@ -29,7 +29,7 @@ function App() {
   
   console.log("This is:", accessToken)
   return (
-    <div  className="App">
+    <div >
       <ToastContainer />
       <Routes>
         <Route path='/' element={<Home accessToken={accessToken}/>}/>
@@ -38,11 +38,11 @@ function App() {
         <Route path="/contact" element={<ContactUs />} />
         {/* protected routes */}
         <Route path="/dashboard" element={<ProtectedRoute accessToken={accessToken}><UserDashboard  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute accessToken={accessToken}><AdminDashboard accessToken={accessToken}/></ProtectedRoute>} />
         <Route path="/order/:id" element={<ProtectedRoute accessToken={accessToken}><OrderDetails  accessToken={accessToken} /></ProtectedRoute>} />
-        <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><Orders  accessToken={accessToken} /></ProtectedRoute>} />
+        <Route path="/parcel_orders" element={<ProtectedRoute accessToken={accessToken}><UserOrders  accessToken={accessToken} /></ProtectedRoute>} />
         <Route path="/edit_parcel/:id" element={<ProtectedRoute accessToken={accessToken}><EditParcel  accessToken={accessToken}/></ProtectedRoute>} />
-   
+        <Route path="/all_orders" element={<ProtectedRoute accessToken={accessToken}><Allorders  accessToken={accessToken}/></ProtectedRoute>} /> 
  
       </Routes>
    
