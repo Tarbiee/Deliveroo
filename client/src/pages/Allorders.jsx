@@ -64,10 +64,18 @@ function Allorders({accessToken}) {
 
   useEffect(() => {
     fetch("https://deliveroo-2.onrender.com/users/all_parcel_orders",{
-      headers:{Authorization: `Bearer ${accessToken}`}
-    })
-    .then(res => res.json())
-    .then((data) => setParcelOrders(data))
+  headers:{Authorization: `Bearer ${accessToken}`}
+})
+.then(res => {
+  if (!res.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return res.json();
+})
+.then((data) => console.log(data))
+.catch((error) => {
+  console.error('There has been a problem with your fetch operation:', error);
+});
   },[accessToken])
 
   const handleLogout = async () => {
@@ -202,7 +210,7 @@ function Allorders({accessToken}) {
       {parcelOrders.map((parcelOrder) => (
                 <tr key={parcelOrder.id}>
                   <td>{parcelOrder.id}</td>
-                  <td>{parcelOrder.name_of_parcel}</td>
+                  <td className=" text-gray-400">{parcelOrder.name_of_parcel}</td>
                   <td>
                     <Button style={{color:"blue"}}>View Parcel</Button>
                   </td>
