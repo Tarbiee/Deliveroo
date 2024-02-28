@@ -11,6 +11,7 @@ import "leaflet/dist/leaflet.css";
 import { IoCallOutline } from "react-icons/io5";
 import Footer from "../components/Footer";
 import axios from "axios";
+import Navbar from "../components/NavBar";
 
 function OrderDetails({ accessToken }) {
   const { id } = useParams();
@@ -122,6 +123,7 @@ function OrderDetails({ accessToken }) {
 
   return (
     <section className=" w-full">
+      <Navbar/>
       <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
         <div className="justify-center flex-1 max-w-6xl py-20 mx-auto bg-white   rounded-2xl">
           <div className="flex flex-wrap justify-center px-20 pb-12 mb-16 text-left border-b border-gray-200 lg:justify-between ">
