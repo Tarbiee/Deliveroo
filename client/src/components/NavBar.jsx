@@ -7,7 +7,7 @@ import {  useAuth } from '../utils/Auth'
 
 
 const Navbar = ({accessToken}) => {
-  const [openNavbar, setOpenNavbar] = useState(false);
+  const [openNavbar, setOpenNavbar] = useState(true);
   const [svg, setSvg] = useState("backdrop-blur-md bg-white/10");
   const [textColor, setTextColor] = useState("text-black");
   const [mobileBg, setMobileBg] = useState("bg-white/80");
