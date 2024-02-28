@@ -14,7 +14,6 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export default function EditParcel({ accessToken }) {
   const [destination, setDestination] = useState("");
