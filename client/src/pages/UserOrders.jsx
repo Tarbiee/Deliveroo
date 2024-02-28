@@ -1,4 +1,5 @@
 import "./UserDashboard.css";
+import { useEffect, useState } from "react";
 import {  Link } from "react-router-dom";
 import { CiBoxList } from "react-icons/ci";
 import { IoCreateSharp } from "react-icons/io5";
@@ -10,8 +11,26 @@ import { toast } from "react-toastify";
 
 function UserOrders({accessToken}) {
 
+  const [userDetails, setUserDetails] = useState([])
   const navigate = useNavigate();
   const { logout } = useAuth()
+
+  useEffect(() => {
+    fetch("https://deliveroo-2.onrender.com/auth/whoami",{
+      headers:{Authorization: `Bearer ${accessToken}`}
+    })
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    })
+    .then((data) => setUserDetails(data))
+    .catch((error) => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
+  },[accessToken])
+
 
   const handleLogout = async () => {
     const response = await fetch('https://deliveroo-2.onrender.com/auth/logout', {
@@ -104,8 +123,8 @@ function UserOrders({accessToken}) {
             <div className="my-6 mt-auto ml-10 flex cursor-pointer">
               <div></div>
               <div className="ml-3">
-                <p className="font-medium">Rick Flair</p>
-                <p className="text-sm text-gray-300">rick@gmai.com</p>
+              <p className="font-medium">{userDetails.username}</p>
+                <p className="text-sm text-gray-300">{userDetails.email}</p>
               </div>
             </div>
           </nav>
