@@ -52,7 +52,7 @@ export default function Register() {
     return (
         <>
        
-        <div className=" mt-40 flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl">
+        <div className=" lg:mt-40 mt-20 flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg  lg:max-w-4xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
           style={{
