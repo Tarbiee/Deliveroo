@@ -72,7 +72,7 @@ function Allorders({accessToken}) {
   }
   return res.json();
 })
-.then((data) => console.log(data))
+.then((data) => setParcelOrders(data))
 .catch((error) => {
   console.error('There has been a problem with your fetch operation:', error);
 });
