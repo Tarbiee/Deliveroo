@@ -47,7 +47,7 @@ function Allorders({accessToken}) {
     })
     .then(response => {
       if (response.ok) {
-        toast.success("$👍 Status changed to ${newStatus} !");
+        toast.success(`$👍 Status changed to ${newStatus} !`);
         const updatedOrders = parcelOrders.map(order => {
           if (order.id === parcelOrderId) {
             return { ...order, status: newStatus };
