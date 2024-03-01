@@ -1,5 +1,5 @@
 # Deliveroo
-Deliveroo is a courier service application that helps users deliver parcels to different destinations. It provides courier quotes based on weight categories and offers various features to streamline the parcel delivery process.
+Deliveroo is a courier service application that helps users deliver parcels to different destinations. It provides courier services and offers various features to streamline the parcel delivery process.
 
 # Features
 1. User authentication: Users can sign up, log in, and manage their accounts securely.
