@@ -8,10 +8,10 @@ from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
 from datetime import datetime, timedelta
 
 app= Flask(__name__)
-app.secret_key = '059da2a0914a822c5b74b333'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///deliveroo.db'
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = '059da2a0914a822c5b74b333'
 
 
 app.json.compact = False
