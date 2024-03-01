@@ -8,10 +8,9 @@ from schemas import UserSchema, ParcelOrderSchema, TrackerSchema
 from datetime import datetime, timedelta
 
 app= Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///deliveroo.db'
-app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=2)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = '059da2a0914a822c5b74b333'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///deliveroo.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 app.json.compact = False
@@ -107,7 +106,7 @@ def token_in_blockist_callback(jwt_header,jwt_data):
 @jwt_required()
 def whoami():
     claims = get_jwt()
-    return jsonify({"username":current_user.username, "email":current_user.email})
+    return jsonify({"user_details":current_user.username, "email":current_user.email})
 
 @auth_bp.get('/refresh')
 @jwt_required(refresh= True)
