@@ -152,7 +152,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="mt-4">
+    {/*      <div className="mt-4">
             <div className="flex justify-between">
               <label
                 className="block mb-2 text-sm font-medium text-gray-600 "
@@ -172,7 +172,7 @@ export default function Register() {
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg   focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
               type="password"
             />
-          </div>
+          </div> */}
   
           <div className="mt-6">
             <button onClick= {handleSignup} className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-700 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
